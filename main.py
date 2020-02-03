@@ -1,6 +1,6 @@
 def main():
-    x = input("Unesi svoje ime: ")
-    print("Cao " + x)    
+    ime = input("Kako se zovete?: ")
+    print("Zdravo " + ime)
 
 if __name__ == "__main__":
     main()
