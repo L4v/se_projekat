@@ -6,11 +6,11 @@ def unos():
     for token in tokens:
         print(token)
 
+    kriterijum = []
+
     for token in tokens:
-        if token == 'AND':
-            logical= token
-        if token == 'OR':
+        if token in ['AND', 'OR', 'NOT']:
             logical = token
-        if token == 'NOT':
-            logical = token
+        else:
+            kriterijum.append(token)
 
