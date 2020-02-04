@@ -1,6 +1,3 @@
-class Node:
-    def __init__(self, val=None)
-    
 
 class Graph: 
     def __init__(self, nodes=None):
@@ -9,7 +6,7 @@ class Graph:
         self._nodes = nodes
 
     def add_node(self, node):
-        if node not int self._nodes:
+        if node not in self._nodes:
             self._nodes[node] = []
 
     def add_link(self, link):

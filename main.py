@@ -1,16 +1,19 @@
 from parser import Parser
 from trie import Trie
 from unos_upita import unos
+from graph import Graph
+import os
 
 
 def main():
     parser = Parser()
-    str = parser.parse('temp/python-2.7.7-docs-html/copyright.html')
-    trie = Trie()
-    for rec in str[1]:
-        trie.add(rec)
-
-    print(trie.find('Python'))
+    graph = Graph()
+    start = input('Unesite root dir: ')
+    for root, dirs, files in os.walk(start):
+        path = root
+        for file in files:
+            if file[-5:] == '.html':
+                print(path + os.sep + file)
 
     unos()
 
