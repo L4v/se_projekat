@@ -41,7 +41,7 @@ class Graph:
         ret = "nodes: "
         for n in self._nodes:
             ret += str(n) + " "
-        res += "\nlinks: "
+        ret += "\nlinks: "
         for link in self._generate_links():
             ret += str(link)
         return ret
