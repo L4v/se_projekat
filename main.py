@@ -1,5 +1,7 @@
 from parser import Parser
 from trie import Trie
+from unos_upita import unos
+
 
 def main():
     parser = Parser()
@@ -9,6 +11,8 @@ def main():
         trie.add(rec)
 
     print(trie.find('Python'))
+
+    unos()
 
 if __name__ == "__main__":
     main()
