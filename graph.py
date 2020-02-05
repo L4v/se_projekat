@@ -30,12 +30,14 @@ class Graph:
     def edges(self):
         edges = []
         for edge in self._vertices.values():
+            print(edge.path)
             edges.append(edge)
-        return set(edges)
+        return edges
 
     def get_vertex(self, path):
         for v in self._vertices:
             if v.path == path:
+                print('yesss')
                 return v
         return None
     def _generate_edges(self):
@@ -51,5 +53,6 @@ class Graph:
        for vertex in self._vertices:
            ret += '\n' + vertex.path + ':\n'
            for edge in self._vertices[vertex]:
+               print(edge)
                ret += '\t' + '->' + edge.path + '\n'
        return ret
