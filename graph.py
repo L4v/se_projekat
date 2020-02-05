@@ -1,48 +1,53 @@
+from page import Page
+from parser import Parser
 
 class Graph: 
-    def __init__(self, nodes=None):
-        if nodes == None:
-            nodes = {}
-        self._nodes = nodes
+    def __init__(self):
+        self._vertices = {}
+        self._parser = Parser()
 
-    def add_node(self, node):
-        if node not in self._nodes:
-            self._nodes[node] = []
+    """ NOTE(Jovan): Stranica se ocekuje kao uredjeni par (reci, linkovi)
+        te se preradjuje u cvor i veze
+    """
+    def add_vertex(self, page):
+        words, links = self._parser.parse(page)
+        vertex = Page(words, links)
+        if vertex is not in self._vertices:
+            self._vertices[vertex] = {}
+        for l in links:
+            _add_edge(vertex, l)    
 
-    def add_link(self, link):
-        # NOTE(Jovan): Linkovi se dodaju u vidu skupa
-        link = set(link)
-        """ NOTE(Jovan):
-            Formira se uredjeni par i dodaje se u graf,
-            ako vec postoji, na postojeci cvor dodaje se link na drugi,
-            inace pravi se cvor sa novim linkom
-        """
-        (node1, node2) = tuple(link)
-        if node1 in self._nodes:
-            self._nodes[node1].append(node2)
-        else:
-            self._nodes[node1] = [node2]
+
         
-    def nodes(self):
-        return list(self._nodes.keys())
+    """ NOTE(Jovan):
+        Dodaje se veza izmedju dva cvora.
+    """
+    def _add_edge(self, vertex, link):
+        if vertex in self._vertices:
+            self._vertices[vertex].append(link)
+        else:
+            self._vertices[vertex] = [link]
+        
+    def vertices(self):
+        return list(self._vertices.keys())
 
-    def links(self):
+    def edges(self):
         return self._generate_edges()
 
-    def _generate_links(self):
-        links = []
-        for node in self._nodes:
-            for neighbour in self._nodes:
-                if {neighbour, node} not in links:
-                    links.append({node, neighbour})
-        return links
+    def _generate_edges(self):
+        edges = []
+        for vertex in self._vertices:
+            for neighbour in self._vertices:
+                if {neighbour, vertex} not in edges:
+                    edges.append({vertex, neighbour})
+        return edges
 
     def __str__(self):
-        ret = "nodes: "
-        for n in self._nodes:
+        ret = "vertices: "
+        for n in self._vertices:
             ret += str(n) + " "
-        ret += "\nlinks: "
-        for link in self._generate_links():
+        ret += "\nedges: "
+        for link in self._generate_edges():
             ret += str(link)
         return ret
         
