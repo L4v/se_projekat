@@ -2,6 +2,7 @@ from parser import Parser
 from trie import Trie
 from unos_upita import unos
 from graph import Graph
+from page import Page
 import os
 
 
@@ -9,13 +10,31 @@ def main():
     parser = Parser()
     graph = Graph()
     start = input('Unesite root dir: ')
+    # TODO(Jovan): Generisanje ID-a za svaki page kako se ne bi
+    # moralo ucitavati vise puta?
     for root, dirs, files in os.walk(start):
-        path = root
         for file in files:
             if file[-5:] == '.html':
-                print(path + os.sep + file)
-
-    unos()
+               path = root + os.path.sep + file
+               print(f'Ucitavam: {path}')
+               words, links = parser.parse(path)
+               page = Page(path, set(words), set(links))
+               graph.add_vertex(page)
+        
+    print('Ucitavanje zavrseno\nStvaram veze...')
+    # NOTE(Jovan): Stvaranje veza
+    # NOTE(Jovan): path je key u pages dict
+    for page in graph.vertices(): 
+        links = page.links
+        # NOTE(Jovan): full_path sluzi za dobavljanje pune putanje stranice
+        # sa kojom stvaramo vezu
+        full_path = page.path.rsplit(os.path.sep, 1)[0]
+        for l in links:
+            link = full_path + os.path.sep + l
+            graph.add_edge(page, graph.get_vertex(page.path))
+            print(f'Adding edge v: {page.path} u:{link}')
+    print('Veze stvorene')
+    print('Graf:', graph)
 
 if __name__ == "__main__":
     main()

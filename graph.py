@@ -4,36 +4,40 @@ from parser import Parser
 class Graph: 
     def __init__(self):
         self._vertices = {}
-        self._parser = Parser()
 
     """ NOTE(Jovan): Stranica se ocekuje kao uredjeni par (reci, linkovi)
         te se preradjuje u cvor i veze
     """
+    # TODO(jovan): Kao uredjeni par ili odmah kao stranica?
     def add_vertex(self, page):
-        words, links = self._parser.parse(page)
-        vertex = Page(words, links)
-        if vertex is not in self._vertices:
-            self._vertices[vertex] = {}
-        for l in links:
-            _add_edge(vertex, l)    
-
+        vertex = page 
+        if vertex not in self._vertices:
+            self._vertices[vertex] = [] 
 
         
     """ NOTE(Jovan):
         Dodaje se veza izmedju dva cvora.
     """
-    def _add_edge(self, vertex, link):
-        if vertex in self._vertices:
-            self._vertices[vertex].append(link)
+    def add_edge(self, vertex1, vertex2):
+        if vertex1 in self._vertices:
+            self._vertices[vertex1].append(vertex2)
         else:
-            self._vertices[vertex] = [link]
-        
+            self._vertices[vertex1] = [vertex2]
+
     def vertices(self):
         return list(self._vertices.keys())
 
     def edges(self):
-        return self._generate_edges()
+        edges = []
+        for edge in self._vertices.values():
+            edges.append(edge)
+        return set(edges)
 
+    def get_vertex(self, path):
+        for v in self._vertices:
+            if v.path == path:
+                return v
+        return None
     def _generate_edges(self):
         edges = []
         for vertex in self._vertices:
@@ -43,11 +47,9 @@ class Graph:
         return edges
 
     def __str__(self):
-        ret = "vertices: "
-        for n in self._vertices:
-            ret += str(n) + " "
-        ret += "\nedges: "
-        for link in self._generate_edges():
-            ret += str(link)
-        return ret
-        
+       ret = ''
+       for vertex in self._vertices:
+           ret += '\n' + vertex.path + ':\n'
+           for edge in self._vertices[vertex]:
+               ret += '\t' + '->' + edge.path + '\n'
+       return ret
