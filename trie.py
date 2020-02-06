@@ -35,9 +35,8 @@ class Trie:
             if not current.contains_key(ch):
                 current.put(ch)
 
-            current.add_page(page)    #dodaj stranicu u cvor
             current = current.get(ch)
-
+        current.add_page(page)
         current.set_end() #kraj reci
 
     def find(self, word):
@@ -48,6 +47,6 @@ class Trie:
                 return None
             current = current.get(ch)
 
-        return current.pages
+        return None if not current.is_end() else current.pages
 
 

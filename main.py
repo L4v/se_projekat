@@ -62,14 +62,13 @@ def main():
     trie = Trie()
     for page in graph.vertices():
         for word in page.words:
-            trie.add(word)
+            trie.add(word, page.path)
 
     print(trie.find('Python'))
     print(trie.find('Kris'))
+    print(trie.find('Poughkipsie'))
 
     unos(trie, graph)
 
 if __name__ == "__main__":
     main()
-
-

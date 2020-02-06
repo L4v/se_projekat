@@ -17,16 +17,8 @@ def unos(trie, graph):
             kriterijum.append(token)
 
     def and_pretraga(kriterijum):
-        for page in graph.vertices():
-            for word in page.words:
-                if word == kriterijum[0]:
-                    i1 = 1
-                elif word == kriterijum[1]:
-                    i2 = 1
-            if i1 == 1 and i2 == 1:
-                print(page.path)
-            i1 = 0
-            i2 = 0
+        for rec in kriterijum:
+            print(trie.find(rec))
 
     def or_pretraga(kriterijum):
         for page in graph.vertices():
@@ -54,8 +46,7 @@ def unos(trie, graph):
 
     def obicna_pretraga(kriterijum):
         for rec in kriterijum:
-            if trie.find(rec):
-                print('xxx.html')
+            print(trie.find(rec))
 
 
     if logical == 'AND':
