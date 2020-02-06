@@ -55,9 +55,8 @@ def unos(trie, graph):
     def obicna_pretraga(kriterijum):
         for rec in kriterijum:
             if trie.find(rec):
-                return print('Postoji!')
-            else:
-                return print('Ne postoji!', rec)
+                print('xxx.html')
+
 
     if logical == 'AND':
         and_pretraga(kriterijum)

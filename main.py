@@ -45,6 +45,9 @@ def main():
             trie.add(word)
 
 
+    print(trie.find('Python'))
+    print(trie.find('Kris'))
+
     unos(trie, graph)
 
 if __name__ == "__main__":
