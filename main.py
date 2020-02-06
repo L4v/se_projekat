@@ -8,7 +8,7 @@ import os
 def menu():
     options = [
             'Odaberite opciju:',
-            '\t1.Odabir root direktorijuma (default=\'temp\')',
+            '\t1.Odabir root direktorijuma ',
             '\t0.Izlaz'
             ]
     for o in options:
@@ -16,7 +16,8 @@ def menu():
     option = int(input('>'))
     return option
 
-def load_graph():
+def load_graph(graph):
+        parser = Parser()
         start = input('Unesite root dir: ')
         # TODO(Jovan): Generisanje ID-a za svaki page kako se ne bi
         # moralo ucitavati vise puta?
@@ -47,14 +48,12 @@ def load_graph():
 
 
 def main():
-    parser = Parser()
-    graph = Graph()
-    root = 'temp'
     # NOTE(Jovan): Glavni loop
+    graph = Graph()
     while True:
         option = menu()
         if option == 1:
-            load_graph()
+            load_graph(graph)
 
         if option == 0:
             break

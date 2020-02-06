@@ -38,13 +38,6 @@ class Graph:
             if v.path == path:
                 return v
         return None
-    def _generate_edges(self):
-        edges = []
-        for vertex in self._vertices:
-            for neighbour in self._vertices:
-                if {neighbour, vertex} not in edges:
-                    edges.append({vertex, neighbour})
-        return edges
 
     def __str__(self):
        ret = ''
