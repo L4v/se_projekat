@@ -5,45 +5,65 @@ from graph import Graph
 from page import Page
 import os
 
+def menu():
+    options = [
+            'Odaberite opciju:',
+            '\t1.Odabir root direktorijuma (default=\'temp\')',
+            '\t0.Izlaz'
+            ]
+    for o in options:
+        print(o)
+    option = int(input('>'))
+    return option
+
+def load_graph():
+        start = input('Unesite root dir: ')
+        # TODO(Jovan): Generisanje ID-a za svaki page kako se ne bi
+        # moralo ucitavati vise puta?
+        for root, dirs, files in os.walk(start):
+            for file in files:
+                if file[-5:] == '.html':
+                   path = root + os.path.sep + file
+                   path_root = os.path.abspath(os.path.dirname(path))
+                   print(f'Ucitavam: {path}')
+                   links, words = parser.parse(path)
+                   page = Page(path_root + os.path.sep + file, words, links)
+                   graph.add_vertex(page)
+            
+        print('Ucitavanje zavrseno\nStvaram veze...')
+        # NOTE(Jovan): Stvaranje veza
+        for page in graph.vertices(): 
+            links = page.links
+            # NOTE(Jovan): full_path sluzi za dobavljanje pune putanje stranice
+            # sa kojom stvaramo vezu
+            full_path = page.path.rsplit(os.path.sep, 1)[0]
+            for l in links:
+                u = graph.get_vertex(l)
+                # TODO(Jovan): get_vertex ce puci ako je u iznad root dir sto je mozda i normalno?
+                graph.add_edge(page, u) 
+                print(f'Adding edge v: {page.path} u:{l}')
+        print('Veze stvorene')
+        print('Graf:', graph)
+
 
 def main():
     parser = Parser()
     graph = Graph()
-    start = input('Unesite root dir: ')
-    # TODO(Jovan): Generisanje ID-a za svaki page kako se ne bi
-    # moralo ucitavati vise puta?
-    for root, dirs, files in os.walk(start):
-        for file in files:
-            if file[-5:] == '.html':
-               path = root + os.path.sep + file
-               path_root = os.path.abspath(os.path.dirname(path))
-               print(f'Ucitavam: {path}')
-               links, words = parser.parse(path)
-               page = Page(path_root+os.path.sep+file, words, links)
-               print(links)
-               graph.add_vertex(page)
-        
-    print('Ucitavanje zavrseno\nStvaram veze...')
-    # NOTE(Jovan): Stvaranje veza
-    # NOTE(Jovan): path je key u pages dict
-    for page in graph.vertices(): 
-        links = page.links
-        # NOTE(Jovan): full_path sluzi za dobavljanje pune putanje stranice
-        # sa kojom stvaramo vezu
-        full_path = page.path.rsplit(os.path.sep, 1)[0]
-        for l in links:
-            # TODO IMPORTANT(Jovan): VRACA FULL PATH, URADITI NA OSNOVU TOGA
-            graph.add_edge(page, graph.get_vertex(l))
-            print(f'Adding edge v: {page.path} u:{l}')
-    print('Veze stvorene')
-    print('Graf:', graph)
+    root = 'temp'
+    # NOTE(Jovan): Glavni loop
+    while True:
+        option = menu()
+        if option == 1:
+            load_graph()
+
+        if option == 0:
+            break
 
     # dodavanje reci u trie
     trie = Trie()
     for page in graph.vertices():
         for word in page.words:
             trie.add(word)
-
 
     unos(trie, graph)
 

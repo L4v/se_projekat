@@ -4,3 +4,5 @@ class Page:
        self.words = [] if words==None else words
        self.links = [] if links==None else links
 
+    def __str__(self):
+        return self.path
