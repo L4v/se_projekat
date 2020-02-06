@@ -30,14 +30,12 @@ class Graph:
     def edges(self):
         edges = []
         for edge in self._vertices.values():
-            print(edge.path)
             edges.append(edge)
         return edges
 
     def get_vertex(self, path):
         for v in self._vertices:
             if v.path == path:
-                print('yesss')
                 return v
         return None
     def _generate_edges(self):

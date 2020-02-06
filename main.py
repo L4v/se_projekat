@@ -16,9 +16,10 @@ def main():
         for file in files:
             if file[-5:] == '.html':
                path = root + os.path.sep + file
+               path_root = os.path.abspath(os.path.dirname(path))
                print(f'Ucitavam: {path}')
                links, words = parser.parse(path)
-               page = Page(path, words, links)
+               page = Page(path_root+os.path.sep+file, words, links)
                print(links)
                graph.add_vertex(page)
         
@@ -32,10 +33,8 @@ def main():
         full_path = page.path.rsplit(os.path.sep, 1)[0]
         for l in links:
             # TODO IMPORTANT(Jovan): VRACA FULL PATH, URADITI NA OSNOVU TOGA
-            print('aaaaaa' + l)
-            link = full_path + os.path.sep + l
-            graph.add_edge(page, graph.get_vertex(link))
-            print(f'Adding edge v: {page.path} u:{link}')
+            graph.add_edge(page, graph.get_vertex(l))
+            print(f'Adding edge v: {page.path} u:{l}')
     print('Veze stvorene')
     print('Graf:', graph)
 
