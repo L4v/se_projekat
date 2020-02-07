@@ -1,7 +1,8 @@
 from page import Page
 from parser import Parser
 
-class Graph: 
+
+class Graph:
     def __init__(self):
         self._vertices = {}
 
@@ -12,9 +13,8 @@ class Graph:
     def add_vertex(self, page):
         vertex = page 
         if vertex not in self._vertices:
-            self._vertices[vertex] = [] 
+            self._vertices[vertex] = []
 
-        
     """ NOTE(Jovan):
         Dodaje se veza izmedju dva cvora.
     """
@@ -39,11 +39,22 @@ class Graph:
                 return v
         return None
 
+    def vertex_count(self):
+        return len(self._vertices)
+
+    def _generate_edges(self):
+        edges = []
+        for vertex in self._vertices:
+            for neighbour in self._vertices:
+                if {neighbour, vertex} not in edges:
+                    edges.append({vertex, neighbour})
+        return edges
+
     def __str__(self):
-       ret = ''
-       for vertex in self._vertices:
-           ret += '\n' + vertex.path + ':\n'
-           for edge in self._vertices[vertex]:
-               print(edge)
-               ret += '\t' + '->' + edge.path + '\n'
-       return ret
+        ret = ''
+        for vertex in self._vertices:
+            ret += '\n' + vertex.path + ':\n'
+            for edge in self._vertices[vertex]:
+                print(edge)
+                ret += '\t' + '->' + edge.path + '\n'
+        return ret
