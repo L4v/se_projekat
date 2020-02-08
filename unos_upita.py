@@ -33,28 +33,10 @@ def unos(trie, graph):
         return print(and_items(trie.find(kriterijum[0]), trie.find(kriterijum[1])))
 
     def or_pretraga(kriterijum):
-        for page in graph.vertices():
-            for word in page.words:
-                if word == kriterijum[0]:
-                    i1 = 1
-                elif word == kriterijum[1]:
-                    i2 = 1
-            if i1 == 1 or i2 == 1:
-                print(page.path)
-            i1 = 0
-            i2 = 0
+        return print(or_items(trie.find(kriterijum[0]), trie.find(kriterijum[1])))
 
     def  not_pretraga(kriterijum):
-        for page in graph.vertices():
-            for word in page.words:
-                if word == kriterijum[0]:
-                    i1 = 1
-                elif word != kriterijum[1]:
-                    i2 = 1
-            if i1 == 1 and i2 == 1:
-                print(page.path)
-            i1 = 0
-            i2 = 0
+        return print(not_items(trie.find(kriterijum[0]), trie.find(kriterijum[1])))
 
     def obicna_pretraga(kriterijum):
         for rec in kriterijum:

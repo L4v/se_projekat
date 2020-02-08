@@ -36,6 +36,7 @@ class Trie:
                 current.put(ch)
 
             current = current.get(ch)
+
         current.add_page(page)
         current.set_end() #kraj reci
 
@@ -44,9 +45,9 @@ class Trie:
 
         for ch in word:
             if not current.contains_key(ch):
-                return None
+                return []
             current = current.get(ch)
 
-        return None if not current.is_end() else current.pages
+        return [] if not current.is_end() else current.pages
 
 
