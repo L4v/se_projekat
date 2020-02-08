@@ -1,5 +1,8 @@
 # TODO(Jovan): Dodati listu stranica koje pokazuju na stranicu
-class Page:
+class Page(object):
+
+    __slots__ = ('path', 'words', 'links', 'links_to')
+
     def __init__(self, path, words=None, links=None, links_to=None):
         self.path = path
         self.words = [] if words is None else words
@@ -8,3 +11,4 @@ class Page:
 
     def __str__(self):
         return self.path
+

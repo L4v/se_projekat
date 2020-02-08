@@ -3,6 +3,7 @@ from trie import Trie
 from unos_upita import unos
 from graph import Graph
 from page import Page
+from set_functions import and_items, or_items, not_items
 import sys
 import os
 
@@ -110,7 +111,14 @@ def main():
                 unos(trie, graph)
             else:
                 print('Potrebno je prvo odabrati root direktorijum')
-
+        # TODO(Jovan): Ukloniti
+        # NOTE(Jovan): Samo za testiranje
+        if option == 3:
+            a = [1, 2, 3, 4]
+            b = [2, 3, 4, 5]
+            print('AND: ', and_items(a, b))
+            print('OR: ', or_items(a, b))
+            print('NOT: ', not_items(a, b))
         if option == 0:
             break
 
