@@ -1,3 +1,7 @@
+from set_functions import and_items
+from set_functions import or_items
+from set_functions import not_items
+
 def unos(trie, graph):
     a = input('Unesite za pretragu: ')
 
@@ -26,8 +30,7 @@ def unos(trie, graph):
             kriterijum.append(token)
 
     def and_pretraga(kriterijum):
-        for rec in kriterijum:
-            print(trie.find(rec))
+        return print(and_items(trie.find(kriterijum[0]), trie.find(kriterijum[1])))
 
     def or_pretraga(kriterijum):
         for page in graph.vertices():
