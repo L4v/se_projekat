@@ -4,7 +4,7 @@ class TrieNode:
         self.end = False
         self.pages = []
 
-    def add_page(self, page):   #dodaj za svaki cvor stranice
+    def add_page(self, page):  # dodaj za svaki cvor stranice
         self.pages.append(page)
         self.pages = list(set(self.pages))
 
@@ -23,6 +23,7 @@ class TrieNode:
     def is_end(self):
         return self.end
 
+
 class Trie:
 
     def __init__(self):
@@ -37,7 +38,7 @@ class Trie:
 
             current = current.get(ch)
         current.add_page(page)
-        current.set_end() #kraj reci
+        current.set_end()  # kraj reci
 
     def find(self, word):
         current = self.root
