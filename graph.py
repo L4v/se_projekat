@@ -1,7 +1,3 @@
-from page import Page
-from parser import Parser
-
-
 class Graph:
     def __init__(self):
         self._vertices = {}
@@ -9,9 +5,8 @@ class Graph:
     """ NOTE(Jovan): Stranica se ocekuje kao uredjeni par (reci, linkovi)
         te se preradjuje u cvor i veze
     """
-    # TODO(jovan): Kao uredjeni par ili odmah kao stranica?
     def add_vertex(self, page):
-        vertex = page 
+        vertex = page
         if vertex not in self._vertices:
             self._vertices[vertex] = []
 

@@ -14,14 +14,24 @@ def progress_bar(count, total, suffix=''):
     filled_len = int(round(bar_len * count / float(total)))
     percents = round(100.0 * count / float(total), 1)
     bar = '█' * filled_len + ' ' * (bar_len - filled_len)
+    # NOTE(Jovan): Radice samo ako se pokrene preko terminala, kao sto je
+    # Linus Torvalds i namenuo
     sys.stdout.write('[%s] %s%s ...%s\r' % (bar, percents, '%', suffix))
     sys.stdout.flush()
+
+
+# NOTE(Jovan): Kada se vrsi ucitavanje nepoznate duzine
+def loading_rotation(current, string=''):
+    symbols = ['\\', '|', '/', '-', '\\', '|', '/', '-']
+    sys.stdout.write('%s [%s]\r' % (string, symbols[current]))
+    return (current + 1) % len(symbols)
 
 
 def menu():
     options = [
             'Odaberite opciju:',
             '\t1.Odabir root direktorijuma ',
+            '\t2.Pretraga reci',
             '\t0.Izlaz'
             ]
     for o in options:
@@ -35,9 +45,10 @@ def load_graph(graph):
     start = input('Unesite root dir: ')
     # TODO(Jovan): Generisanje ID-a za svaki page kako se ne bi
     # moralo ucitavati vise puta?
-    print('Ucitavanje grafa...')
+    current = 0
     for root, dirs, files in os.walk(start):
         for file in files:
+            current = loading_rotation(current, 'Ucitavanje grafa...')
             if file[-5:] == '.html':
                 path = root + os.path.sep + file
                 path_root = os.path.abspath(os.path.dirname(path))
@@ -46,8 +57,9 @@ def load_graph(graph):
                 links, words = parser.parse(path)
                 page = Page(path_root + os.path.sep + file, words, links)
                 graph.add_vertex(page)
+    loading_rotation(current, 'Ucitavanje zavrseno')
+    print()
 
-    print('Ucitavanje zavrseno\n')
     # NOTE(Jovan): Stvaranje veza
     total = graph.vertex_count()
     count = 0
@@ -60,8 +72,9 @@ def load_graph(graph):
             # mozda i normalno?
             graph.add_edge(page, u)
         count += 1
-    print('Veze stvorene')
-    print('Graf:', graph)
+    count = total
+    progress_bar(count, total, 'Veze stvorene')
+    print()
 
 
 def load_trie(graph, trie):
@@ -73,22 +86,33 @@ def load_trie(graph, trie):
         for word in page.words:
             trie.add(word, page.path)
         count += 1
+    count = total
+    progress_bar(count, total, 'Stablo ucitano')
+    print()
 
 
 def main():
     # NOTE(Jovan): Glavni loop
+    is_loaded = False
     graph = Graph()
     trie = Trie()
     while True:
+        if not is_loaded:
+            print('*** ROOT NIJE OTVOREN ***')
         option = menu()
         if option == 1:
             load_graph(graph)
             load_trie(graph, trie)
+            is_loaded = True
+
+        if option == 2:
+            if is_loaded:
+                unos(trie, graph)
+            else:
+                print('Potrebno je prvo odabrati root direktorijum')
 
         if option == 0:
             break
-
-    unos(trie, graph)
 
 
 if __name__ == "__main__":
