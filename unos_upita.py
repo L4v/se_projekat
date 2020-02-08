@@ -9,10 +9,19 @@ def unos(trie, graph):
     kriterijum = [] #reci koje smo uneli na osnovu kojih vrsimo pretragu
     logical = None #logicki operator
     pages = [] #stranice u kojima se nalaze reci
+    count_logical = 0 #samo jedan logicki operator moze biti unet
+    count_reci = 0
+
+    # proveravamo da li je unet i logicki operator
 
     for token in tokens:
         if token in ['AND', 'OR', 'NOT']:
-            logical = token
+            if count_logical == 1:
+                print('Pogresan unos (samo jedan logicki operator mozete uneti!)')
+                return
+            else:
+                logical = token
+                count_logical = 1
         else:
             kriterijum.append(token)
 
