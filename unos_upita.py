@@ -1,6 +1,6 @@
-from set import and_items
-from set import or_items
-from set import not_items
+from set_functions import and_items
+from set_functions import or_items
+from set_functions import not_items
 
 def unos(trie, graph):
     a = input('Unesite za pretragu: ')
