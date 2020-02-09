@@ -30,13 +30,13 @@ def unos(trie, graph):
             kriterijum.append(token)
 
     def and_pretraga(kriterijum):
-        return print(and_items(trie.search(kriterijum[0]), trie.search(kriterijum[1])))
+        return and_items(trie.search(kriterijum[0]), trie.search(kriterijum[1]))
 
     def or_pretraga(kriterijum):
-        return print(or_items(trie.search(kriterijum[0]), trie.search(kriterijum[1])))
+        return or_items(trie.search(kriterijum[0]), trie.search(kriterijum[1]))
 
     def  not_pretraga(kriterijum):
-        return print(not_items(trie.search(kriterijum[0]), trie.search(kriterijum[1])))
+        return not_items(trie.search(kriterijum[0]), trie.search(kriterijum[1]))
 
     def obicna_pretraga(kriterijum):
         for rec in kriterijum:
@@ -49,7 +49,7 @@ def unos(trie, graph):
         or_pretraga(kriterijum)
     elif logical == 'NOT':
         not_pretraga(kriterijum)
-    elif logical == None:
+    elif logical is None:
         obicna_pretraga(kriterijum)
 
 
