@@ -41,7 +41,7 @@ class Trie:
         current.add_page(page)
         current.set_end()  # kraj reci
 
-    def find(self, word):
+    def search(self, word):
         current = self.root
 
         for ch in word:
