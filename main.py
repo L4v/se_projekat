@@ -1,6 +1,6 @@
 from parser import Parser
 from trie import Trie
-from unos_upita import unos
+from unos import unos_upita
 from graph import Graph
 from page import Page
 from set_functions import and_items, or_items, not_items
@@ -108,7 +108,7 @@ def main():
 
         if option == 2:
             if is_loaded:
-                unos(trie, graph)
+                unos_upita(trie)
             else:
                 print('Potrebno je prvo odabrati root direktorijum')
         # TODO(Jovan): Ukloniti
