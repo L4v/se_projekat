@@ -18,10 +18,10 @@ class SearchDisplay:
         )
 
     def display(self, page_num):
+        self._paginate()
         if page_num >= len(self._pages):
             print('Strana ne postoji')
             return
-        self._paginate()
         print(f'#### STRANA {page_num} ####')
         for page in self._pages[page_num]:
             print(page)

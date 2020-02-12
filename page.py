@@ -14,3 +14,6 @@ class Page(object):
 
     def __eq__(self, other):
         return isinstance(other, Page) and other.path == self.path
+
+    def __hash__(self):
+        return hash(str(self))
