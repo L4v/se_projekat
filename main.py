@@ -1,6 +1,6 @@
 from parser import Parser
 from trie import Trie
-from unos_upita import unos
+from unos import unos
 from graph import Graph
 from page import Page
 from search_result import SearchResult
