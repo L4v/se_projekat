@@ -1,6 +1,6 @@
 from parser import Parser
 from trie import Trie
-from unos import unos
+from unos import unos_upita
 from graph import Graph
 from page import Page
 from search_result import SearchResult
@@ -118,7 +118,7 @@ def main():
 
         elif option == 2:
             if is_loaded:
-                search_result = SearchResult(unos(trie, graph))
+                search_result = SearchResult(unos_upita(trie))
                 search_result.display(0)
 
             else:
