@@ -3,7 +3,8 @@ from trie import Trie
 from unos_upita import unos
 from graph import Graph
 from page import Page
-from set_functions import and_items, or_items, not_items
+from search_result import SearchResult
+
 import sys
 import os
 
@@ -37,7 +38,12 @@ def menu():
             ]
     for o in options:
         print(o)
-    option = int(input('>'))
+    while True:
+        try:
+            option = int(input('>'))
+            break
+        except Exception:
+            print('Unos mora biti broj!')
     return option
 
 
@@ -73,6 +79,9 @@ def load_graph(graph):
             # mozda i normalno?
             graph.add_edge(page, u)
         count += 1
+    # NOTE(Jovan): Stvaranje veza ka pojedinim stranicama
+    # TODO(Jovan): Testirati
+    graph.generate_outs()
     count = total
     progress_bar(count, total, 'Veze stvorene')
     print()
@@ -92,6 +101,7 @@ def load_trie(graph, trie):
     print()
 
 
+# TODO IMPORTANT(Jovan): IMPLEMENTIRATI BOLJU VARIJANTU OD os.walk()
 def main():
     # NOTE(Jovan): Glavni loop
     is_loaded = False
@@ -106,21 +116,19 @@ def main():
             load_trie(graph, trie)
             is_loaded = True
 
-        if option == 2:
+        elif option == 2:
             if is_loaded:
-                unos(trie, graph)
+                search_result = SearchResult(unos(trie, graph))
+                search_result.display(0)
+
             else:
                 print('Potrebno je prvo odabrati root direktorijum')
         # TODO(Jovan): Ukloniti
         # NOTE(Jovan): Samo za testiranje
-        if option == 3:
-            a = [1, 2, 3, 4]
-            b = [2, 3, 4, 5]
-            print('AND: ', and_items(a, b))
-            print('OR: ', or_items(a, b))
-            print('NOT: ', not_items(a, b))
-        if option == 0:
+        elif option == 0:
             break
+        else:
+            print('Nepoznata opcija')
 
 
 if __name__ == "__main__":

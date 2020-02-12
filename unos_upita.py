@@ -2,6 +2,7 @@ from set_functions import and_items
 from set_functions import or_items
 from set_functions import not_items
 
+
 def unos(trie, graph):
     a = input('Unesite za pretragu: ')
 
@@ -10,10 +11,10 @@ def unos(trie, graph):
     for token in tokens:
         print(token)
 
-    kriterijum = [] #reci koje smo uneli na osnovu kojih vrsimo pretragu
-    logical = None #logicki operator
-    pages = [] #stranice u kojima se nalaze reci
-    count_logical = 0 #samo jedan logicki operator moze biti unet
+    kriterijum = []  # reci koje smo uneli na osnovu kojih vrsimo pretragu
+    logical = None  # logicki operator
+    pages = []  # stranice u kojima se nalaze reci
+    count_logical = 0  # samo jedan logicki operator moze biti unet
     count_reci = 0
 
     # proveravamo da li je unet i logicki operator
@@ -35,13 +36,12 @@ def unos(trie, graph):
     def or_pretraga(kriterijum):
         return print(or_items(trie.search(kriterijum[0]), trie.search(kriterijum[1])))
 
-    def  not_pretraga(kriterijum):
+    def not_pretraga(kriterijum):
         return print(not_items(trie.search(kriterijum[0]), trie.search(kriterijum[1])))
 
     def obicna_pretraga(kriterijum):
         for rec in kriterijum:
             print(trie.search(rec))
-
 
     if logical == 'AND':
         and_pretraga(kriterijum)
@@ -49,7 +49,7 @@ def unos(trie, graph):
         or_pretraga(kriterijum)
     elif logical == 'NOT':
         not_pretraga(kriterijum)
-    elif logical == None:
+    elif logical is None:
         obicna_pretraga(kriterijum)
 
 
