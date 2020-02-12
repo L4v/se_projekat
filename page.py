@@ -12,3 +12,5 @@ class Page(object):
     def __str__(self):
         return self.path
 
+    def __eq__(self, other):
+        return isinstance(other, Page) and other.path == self.path
