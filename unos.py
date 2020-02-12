@@ -1,11 +1,12 @@
 from pretraga import pretraga_upita
+from sets import Set
 
 def unos_upita(trie):
     a = input('Unesite reci za pretragu: ')
 
     if a == '':
         print('*** NEMA UNOSA! ***')
-        return
+        return Set()
 
     tokens = a.split()
 
@@ -18,7 +19,7 @@ def unos_upita(trie):
         if token in ['and', 'or', 'not', 'AND', 'OR', 'NOT']:
             if count_logical == 1:
                 print('* Samo jedan logicki operator mozete uneti! *')
-                return
+                return Set()
             else:
                 logical = token
                 count_logical = 1
@@ -29,6 +30,6 @@ def unos_upita(trie):
     if count_logical == 1:
         if len(kriterijum) != 2 or logical is not tokens[1]:
             print('*** POGRESAN UNOS! ***')
-            return
+            return Set()
 
-    pretraga_upita(trie, kriterijum, logical)
+    return pretraga_upita(trie, kriterijum, logical)
