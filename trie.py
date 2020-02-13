@@ -5,15 +5,14 @@ class TrieNode:
     def __init__(self):
         self.children = {}
         self.end = False
-        self.pages = []
+        self.pages = {}
 
     def add_page(self, page):  # dodaj stranicu za neku rec
-        for p in self.pages:
-            if page == p:
-                p += 1
-                break
+        path = page.get_path()
+        if path not in self.pages:
+            self.pages[path] = page
         else:
-            self.pages.append(page)
+            self.pages[path] += 1
 
     def put(self, ch):
         self.children[ch] = TrieNode()
@@ -43,7 +42,7 @@ class Trie:
                 current.put(ch)
 
             current = current.get(ch)
-
+        
         tmp = Result(page)
         current.add_page(tmp)
         current.set_end()  # kraj reci
@@ -56,4 +55,4 @@ class Trie:
                 return []
             current = current.get(ch)
 
-        return [] if not current.is_end() else current.pages
+        return [] if not current.is_end() else list(current.pages.values())
