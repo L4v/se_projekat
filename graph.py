@@ -37,10 +37,6 @@ class Graph:
     def vertex_count(self):
         return len(self._vertices)
 
-    def get_degree(self, vertex):
-        if vertex in self._vertices:
-            return len(self._vertices[vertex])
-
     def _generate_edges(self):
         edges = []
         for vertex in self._vertices:
@@ -48,14 +44,6 @@ class Graph:
                 if {neighbour, vertex} not in edges:
                     edges.append({vertex, neighbour})
         return edges
-
-    def generate_outs(self):
-        for vertex in self._vertices:
-            for v in self._vertices:
-                if vertex == v:
-                    continue
-                if vertex.path in v.links and v.path not in vertex.links_to:
-                    vertex.links_to.append(v.path)
 
     def __str__(self):
         ret = ''

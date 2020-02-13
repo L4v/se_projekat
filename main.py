@@ -79,10 +79,6 @@ def load_graph(graph):
             # mozda i normalno?
             graph.add_edge(page, u)
         count += 1
-    # NOTE(Jovan): Stvaranje veza ka pojedinim stranicama
-    # TODO(Jovan): Testirati
-    graph.generate_outs()
-    count = total
     progress_bar(count, total, 'Veze stvorene')
     print()
 
@@ -118,13 +114,13 @@ def main():
 
         elif option == 2:
             if is_loaded:
-                search_result = SearchDisplay(unos_upita(trie))
+                results = unos_upita(trie)
+
+                search_result = SearchDisplay(results)
                 search_result.display(0)
 
             else:
                 print('Potrebno je prvo odabrati root direktorijum')
-        # TODO(Jovan): Ukloniti
-        # NOTE(Jovan): Samo za testiranje
         elif option == 0:
             break
         else:

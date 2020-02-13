@@ -3,11 +3,11 @@ class Set:
         self._values = [] if values is None else values
 
     def add(self, item):
-        if item not in self._stuff:
-            self._stuff.append(item)
+        if item not in self._values:
+            self._values.append(item)
 
     def __getitem__(self, index):
-        return self._stuff[index]
+        return self._values[index]
 
     # NOTE(Jovan): AND '*'
     def __mul__(self, other):
