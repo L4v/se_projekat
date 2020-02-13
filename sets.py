@@ -1,20 +1,16 @@
-class Set:
+class Set(dict):
     def __init__(self, values=None):
-        self._values = [] if values is None else values
+        pass
 
-    def add(self, item):
-        if item not in self._values:
-            self._values.append(item)
-
-    def __getitem__(self, index):
-        return self._values[index]
+    def __getattr__(self, attr):
+        return self[attr]
 
     # NOTE(Jovan): AND '*'
     def __mul__(self, other):
         ret = Set()
-        for i in self._values:
-            if i in other and i not in ret:
-                ret.add(i)
+        for key in self:
+            if key in other:
+                ret[key] = self[key]
         return ret
 
     # NOTE(Jovan): OR '+'

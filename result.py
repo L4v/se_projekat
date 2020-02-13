@@ -3,7 +3,7 @@ class Result:
 
     def __init__(self, page, count=None):
         self._page = page
-        self._count = 0 if count is None else count
+        self._count = 1 if count is None else count
 
     def __iadd__(self, other):
         self._count += other

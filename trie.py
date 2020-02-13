@@ -1,3 +1,6 @@
+from result import Result
+
+
 class TrieNode:
     def __init__(self):
         self.children = {}
@@ -27,6 +30,7 @@ class TrieNode:
     def is_end(self):
         return self.end
 
+
 class Trie:
     def __init__(self):
         self.root = TrieNode()
@@ -40,7 +44,8 @@ class Trie:
 
             current = current.get(ch)
 
-        current.add_page(page)
+        tmp = Result(page)
+        current.add_page(tmp)
         current.set_end()  # kraj reci
 
     def find(self, word):
