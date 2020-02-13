@@ -26,3 +26,4 @@ class SearchDisplay:
         print(f'#### STRANA {page_num} ####')
         for page in self._pages[page_num]:
             print(page)
+        print(f'#### KRAJ STRANE {page_num} ####')

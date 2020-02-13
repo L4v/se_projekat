@@ -9,10 +9,13 @@ class Result:
         self._count += other
 
     def __eq__(self, other):
-        return isinstance(other, Result) and self._page == other._page and self._count == other._count
+        return isinstance(other, Result) and self._page == other._page
 
     def get_count(self):
         return self._count
 
     def get_page(self):
         return self._page
+    
+    def __str__(self):
+        return self._page + ': ' + str(self._count)

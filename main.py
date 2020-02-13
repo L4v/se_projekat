@@ -36,8 +36,7 @@ def menu():
             '\t2.Pretraga reci',
             '\t0.Izlaz'
             ]
-    for o in options:
-        print(o)
+    print('\n'.join(options))
     while True:
         try:
             option = int(input('>'))
@@ -97,6 +96,42 @@ def load_trie(graph, trie):
     print()
 
 
+def page_menu(search_display):
+    options = [
+            'Odaberite opciju:',
+            '\t1. Prikazi odredjenu stranu',
+            '\t2. Promeni broj rezultata po strani',
+            '\t0. Nazad',
+            ]
+    page_num = 0
+    while True:
+        search_display.display(page_num)
+        print('*** PAGE MENU ***')
+        print('\n'.join(options))
+        while True:
+            try:
+                option = int(input('>'))
+                break
+            except Exception:
+                print('Unos mora biti broj!')
+
+        if option == 1:
+            try:
+                page_num = int(input('Broj strane: '))
+            except Exception:
+                print('Unos mora biti broj!')
+
+        if option == 2:
+            try:
+                num_results = int(input('Broj rezultata: '))
+            except Exception:
+                print('Unos mora biti broj!')
+            search_display.set_count(num_results)
+
+        if option == 0:
+            break
+
+
 # TODO IMPORTANT(Jovan): IMPLEMENTIRATI BOLJU VARIJANTU OD os.walk()
 def main():
     # NOTE(Jovan): Glavni loop
@@ -104,6 +139,7 @@ def main():
     graph = Graph()
     trie = Trie()
     while True:
+        print('*** GLAVNI MENI ***')
         if not is_loaded:
             print('*** ROOT NIJE OTVOREN ***')
         option = menu()
@@ -115,9 +151,10 @@ def main():
         elif option == 2:
             if is_loaded:
                 results = unos_upita(trie)
-
-                search_result = SearchDisplay(results)
-                search_result.display(0)
+                # TODO(Jovan): Pagerank ovde na results i onda prikaz
+                # TODO(Jovan): Isto ucinit set iterable?
+                search_result = SearchDisplay(results._values)
+                page_menu(search_result)
 
             else:
                 print('Potrebno je prvo odabrati root direktorijum')

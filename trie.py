@@ -12,8 +12,8 @@ class TrieNode:
             if page == p:
                 p += 1
                 break
-            else:
-                self.pages.append(page)
+        else:
+            self.pages.append(page)
 
     def put(self, ch):
         self.children[ch] = TrieNode()
