@@ -2,11 +2,13 @@ class TrieNode:
     def __init__(self):
         self.children = {}
         self.end = False
-        self.pages = []
+        self.pages = {}
 
     def add_page(self, page):  # dodaj za svaki cvor stranice
-        self.pages.append(page)
-        self.pages = list(set(self.pages))
+        if page not in self.pages:
+            self.pages[page] = 1
+        else:
+            self.pages[page] += 1
 
     def put(self, ch):
         self.children[ch] = TrieNode()
@@ -46,9 +48,9 @@ class Trie:
 
         for ch in word:
             if not current.contains_key(ch):
-                return []
+                return {}
             current = current.get(ch)
 
-        return [] if not current.is_end() else current.pages
+        return {} if not current.is_end() else current.pages
 
 
