@@ -10,7 +10,7 @@ def pretraga_upita(trie, kriterijum, logical):
     else:
         length = len(kriterijum)
         if length == 1:
-            return trie.find(kriterijum[0])
+            return Set(trie.find(kriterijum[0]))
         else:
             a = Set(trie.find(kriterijum[0]) + trie.find(kriterijum[1]))
             if length == 2:
