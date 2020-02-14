@@ -1,4 +1,5 @@
 # Search engine projekat iz predmeta OISISI
+## Python 3.8.1
 ## Korisceni python paketi
 ## NAPOMENA: Paketi nisu potrebni za pokretanje programa niti sluze za njegovu funkcionalnost,
 ## tu su samo da bi obezbedili postovanje PEP8 standarda

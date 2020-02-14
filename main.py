@@ -1,8 +1,8 @@
 from parser import Parser
 from trie import Trie
 from unos import unos_upita
-from graph import Graph
-from page import Page
+from graph.graph import Graph
+from graph.vertex import Vertex
 from search_result import SearchDisplay
 
 import sys
@@ -48,7 +48,17 @@ def menu():
 
 def load_graph(graph):
     parser = Parser()
-    start = input('Unesite root dir: ')
+    while True:
+        start = input('Unesite root dir: ')
+        if os.path.isdir(start):
+            for fname in os.listdir(start):
+                if os.path.isdir(os.path.join(start, fname):
+                        break
+            else:
+                
+            break
+        else:
+            print('Nije validna putanja')
     # TODO(Jovan): Generisanje ID-a za svaki page kako se ne bi
     # moralo ucitavati vise puta?
     current = 0
@@ -58,27 +68,11 @@ def load_graph(graph):
             if file[-5:] == '.html':
                 path = root + os.path.sep + file
                 path_root = os.path.abspath(os.path.dirname(path))
-                # TODO(Jovan): Je l potrebno?
-                # print(f'Ucitavam: {path}')
                 links, words = parser.parse(path)
-                page = Page(path_root + os.path.sep + file, words, links)
-                graph.add_vertex(page)
+                # NOTE(Jovan): Informacije o stranici pretvaraju se u vertex
+                vertex = Vertex(path_root + os.path.sep + file, words, links)
+                graph.add_vertex(vertex)
     loading_rotation(current, 'Ucitavanje zavrseno')
-    print()
-
-    # NOTE(Jovan): Stvaranje veza
-    total = graph.vertex_count()
-    count = 0
-    for page in graph.vertices():
-        progress_bar(count, total, 'Stvaram veze...')
-        links = page.links
-        for l in links:
-            u = graph.get_vertex(l)
-            # TODO(Jovan): get_vertex ce puci ako je u iznad root dir sto je
-            # mozda i normalno?
-            graph.add_edge(page, u)
-        count += 1
-    progress_bar(count, total, 'Veze stvorene')
     print()
 
 
@@ -86,10 +80,10 @@ def load_trie(graph, trie):
     # dodavanje reci u trie
     total = graph.vertex_count()
     count = 0
-    for page in graph.vertices():
+    for vertex in graph.vertices():
         progress_bar(count, total, 'Ucitavam stablo...')
-        for word in page.words:
-            trie.add(word, page.path)
+        for word in vertex.get_words():
+            trie.add(word, vertex.get_path())
         count += 1
     count = total
     progress_bar(count, total, 'Stablo ucitano')
