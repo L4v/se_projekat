@@ -17,5 +17,5 @@ def pretraga_upita(trie, kriterijum, logical):
                 return a
             else:
                 for i in range(2, length):
-                    rez = Set(a) + Set(trie.find(kriterijum[i]))
+                    rez = a + Set(trie.find(kriterijum[i]))
                 return rez
