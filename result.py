@@ -17,6 +17,9 @@ class Result:
 
     def get_path(self):
         return self._path
-    
+
+    def __hash__(self):
+        return hash(self._path)
+
     def __str__(self):
         return self._path + ': ' + str(self._count)
