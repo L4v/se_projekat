@@ -1,4 +1,4 @@
-# NOTE(Jovan): Predstava web stranice
+# graph/vertex.py
 class Vertex(object):
 
     __slots__ = ('_path', '_words', '_links', '_rank')

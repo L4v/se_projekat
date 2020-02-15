@@ -1,15 +1,33 @@
+# sets.py
+class SetIterator:
+    def __init__(self, set_obj):
+        self._set = set_obj
+        self._index = 0
+
+    def __next__(self):
+        if self._index < len(self._set._values):
+            result = self._set._values[self._index]
+            self._index += 1
+            return result
+        else:
+            raise StopIteration
+
+
 class Set():
     def __init__(self, values=None):
-        self._values = values if values is not None else []
+        self._values = list(dict.fromkeys(values)) if values is not None else []
+
+    def add(self, item):
+        if item not in self._values:
+            self._values.append(item)
+
+    def __iter__(self):
+        return SetIterator(self)
 
     # TODO(Jovan): Dodati throw???
     def __getitem__(self, index):
         if index >= 0 and index < len(self._values):
             return self._values[index]
-
-    def add(self, item):
-        if item not in self._values:
-            self._values.append(item)
 
     # NOTE(Jovan): AND '*'
     def __mul__(self, other):
