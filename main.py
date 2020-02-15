@@ -48,14 +48,16 @@ def menu():
 
 def load_graph(graph):
     parser = Parser()
+    # TODO(Jovan): Proveriti da li rade provere
     while True:
         start = input('Unesite root dir: ')
         if os.path.isdir(start):
             for fname in os.listdir(start):
-                if os.path.isdir(os.path.join(start, fname):
-                        break
+                curr = os.path.join(start, fname)
+                if os.path.isdir(curr) or curr.endswith('.html'):
+                    break
             else:
-                
+                print('Nije validna putanja')
             break
         else:
             print('Nije validna putanja')
