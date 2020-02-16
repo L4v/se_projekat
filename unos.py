@@ -1,6 +1,8 @@
 from pretraga import pretraga_upita
+from sets import Set
 
-def unos_upita(trie):
+
+def unos_upita(trie, graph):
 
     while True:
         a = input('Unesite reci za pretragu: ')
@@ -28,14 +30,21 @@ def unos_upita(trie):
                 kriterijum.append(token)
 
         if logical is tokens[0] and logical in ['not', 'NOT'] and len(kriterijum) == 1:
-            print("Not unos") # zavrsiti
+            print("Not unos")
+            a = Set()  # set svih stranica
+            for vertex in graph.vertices():
+                a.add(vertex)
+
+            #  trie.find vraca Result tip moramo pretvoriti u path
+            #  b ce biti skup stranica koje sadrze tu rec
+            b = Set([x.get_path for x in trie.find(kriterijum[0])])
+
+            return a - b
 
         # provera unosa
         if count_logical == 1:
             if len(kriterijum) != 2 or logical is not tokens[1]:
                 print('*** POGRESAN UNOS! ***')
                 continue
-
-
 
         return pretraga_upita(trie, kriterijum, logical)

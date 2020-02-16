@@ -147,7 +147,7 @@ def main():
 
         elif option == 2:
             if is_loaded:
-                results = unos_upita(trie)
+                results = unos_upita(trie, graph)
                 # TODO(Jovan): Pagerank ovde na results i onda prikaz
                 # TODO(Jovan): Isto ucinit set iterable?
                 search_result = SearchDisplay(results._values)
