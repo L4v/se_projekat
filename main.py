@@ -30,6 +30,12 @@ def loading_rotation(current, string=''):
     return (current + 1) % len(symbols)
 
 
+def menu_header(text, max_len=51, padding=3):
+    decor_len = (max_len - len(text) - 2 * padding)//2
+    decor_len = 0 if decor_len <= 0 else decor_len
+    print('='*decor_len + ' '*padding + text + ' '*padding + '='*decor_len)
+
+
 def menu():
     options = [
             'Odaberite opciju:',
@@ -100,10 +106,10 @@ def page_menu(search_display):
             '\t2. Promeni broj rezultata po strani',
             '\t0. Nazad',
             ]
-    page_num = 0
+    page_num = 1
     while True:
         search_display.display(page_num)
-        print('*** PAGE MENU ***')
+        menu_header('MENI PRIKAZA')
         print('\n'.join(options))
         while True:
             try:
@@ -121,6 +127,7 @@ def page_menu(search_display):
         if option == 2:
             try:
                 num_results = int(input('Broj rezultata: '))
+                page_num = 1
             except Exception:
                 print('Unos mora biti broj!')
             search_display.set_count(num_results)
@@ -136,9 +143,9 @@ def main():
     graph = Graph()
     trie = Trie()
     while True:
-        print('*** GLAVNI MENI ***')
+        menu_header('GLAVNI MENI')
         if not is_loaded:
-            print('*** ROOT NIJE OTVOREN ***')
+            print('WARNING: ROOT dir nije odabran!')
         option = menu()
         if option == 1:
             load_graph(graph)
