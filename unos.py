@@ -1,6 +1,4 @@
 from pretraga import pretraga_upita
-from result import Result
-from sets import Set
 
 
 def unos_upita(trie, graph):
@@ -32,14 +30,6 @@ def unos_upita(trie, graph):
             else:
                 kriterijum.append(token)
 
-        if logical is tokens[0] and logical in ['not', 'NOT'] and len(kriterijum) == 1:
-            print("Not unos")
-
-            a = Set([Result(i, 0) for i in graph.vertices(as_path=True)])
-            #  trie.find vraca Result tip moramo pretvoriti u path
-            #  b ce biti skup stranica koje sadrze tu rec
-            b = Set(trie.find(kriterijum[0]))
-            return a - b
         # ukoliko imamo unos tipa 'not word'
         if logical == tokens[0] and logical == 'not' and len(kriterijum) == 1:
             not_word = 1

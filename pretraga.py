@@ -1,9 +1,10 @@
+from result import Result
 from sets import Set
 
 def pretraga_upita(trie, graph, kriterijum, logical, not_word):
     if not_word == 1:
-        a = Set(graph.vertices(as_path=True))  # skup svih stranica
-        b = Set([x.get_path() for x in trie.find(kriterijum[0])])
+        a = Set([Result(i, 0) for i in graph.vertices(as_path=True)])  # skup svih stranica
+        b = Set(trie.find(kriterijum[0]))
         #  trie.find vraca Result tip moramo pretvoriti u path
         #  b ce biti skup stranica koje sadrze tu rec
         return a - b
