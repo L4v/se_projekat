@@ -21,6 +21,9 @@ class Set():
         if item not in self._values:
             self._values.append(item)
 
+    def __len__(self):
+        return len(self._values)
+
     def __iter__(self):
         return SetIterator(self)
 
