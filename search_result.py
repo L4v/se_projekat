@@ -6,7 +6,12 @@ class SearchDisplay:
         self._count = 1 if count is None or count < 1 else count
 
     def set_count(self, count):
-        self._count = 1 if count <= 1 else count
+        if count <= 1:
+            self._count = 1
+        elif count >= len(self._results):
+            self._count = len(self._results) - 1
+        else:
+            self._count = count
 
     def _paginate(self):
         self._pages = []
@@ -20,10 +25,14 @@ class SearchDisplay:
 
     def display(self, page_num):
         self._paginate()
-        if page_num >= len(self._pages):
-            print('Strana ne postoji')
+        page_max = len(self._pages)
+        if page_num >= page_max or page_num <= 0:
+            print(f'Strana {page_num} ne postoji!')
             return
-        print(f'#### STRANA {page_num} ####')
-        for page in self._pages[page_num]:
-            print(page)
-        print(f'#### KRAJ STRANE {page_num} ####')
+        page_num = page_num - 1
+        print(f'#### STRANA {page_num+1}/{page_max-1} ####\n')
+        page_len = len(self._pages[0])
+        for i, page in enumerate(self._pages[page_num],
+                                 start=(1 + page_num * page_len)):
+            print(f'{i} - {page}')
+        print(f'\n#### KRAJ STRANE {page_num+1}/{page_max-1} ####')
