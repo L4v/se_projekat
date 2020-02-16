@@ -86,7 +86,7 @@ def load_trie(graph, trie):
     for vertex in graph.vertices():
         progress_bar(count, total, 'Ucitavam stablo...')
         for word in vertex.get_words():
-            trie.add(word, vertex.get_path())
+            trie.add(word.lower(), vertex.get_path())
         count += 1
     count = total
     progress_bar(count, total, 'Stablo ucitano')

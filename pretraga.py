@@ -1,11 +1,18 @@
 from sets import Set
 
-def pretraga_upita(trie, kriterijum, logical):
-    if logical in ['and', 'AND']:
+def pretraga_upita(trie, graph, kriterijum, logical, not_word):
+    if not_word == 1:
+        a = Set(graph.vertices(as_path=True))  # skup svih stranica
+        b = Set([x.get_path() for x in trie.find(kriterijum[0])])
+        #  trie.find vraca Result tip moramo pretvoriti u path
+        #  b ce biti skup stranica koje sadrze tu rec
+        return a - b
+
+    if logical == 'and':
         return Set(trie.find(kriterijum[0])) * Set(trie.find(kriterijum[1]))
-    elif logical in ['or', 'OR']:
+    elif logical == 'or':
         return Set(trie.find(kriterijum[0])) + Set(trie.find(kriterijum[1]))
-    elif logical in ['not', 'NOT']:
+    elif logical == 'not':
         return Set(trie.find(kriterijum[0])) - Set(trie.find(kriterijum[1]))
     else:  # obicna pretraga
         length = len(kriterijum)
