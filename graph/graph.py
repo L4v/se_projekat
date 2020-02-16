@@ -10,8 +10,10 @@ class Graph:
         if vertex not in self._vertices:
             self._vertices[vertex.get_path()] = vertex
 
-    def vertices(self):
-        return list(self._vertices.values())
+    # NOTE(Jovan): as_path -> ako je true vraca samo putanja, inace
+    # vraca objekat vertex
+    def vertices(self, as_path=False):
+        return list(self._vertices.keys()) if as_path else list(self._vertices.values())
 
     def edges(self):
         edges = {}
