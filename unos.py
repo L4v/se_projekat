@@ -31,8 +31,8 @@ def unos_upita(trie, graph):
 
         if logical is tokens[0] and logical in ['not', 'NOT'] and len(kriterijum) == 1:
             print("Not unos")
-            a = Set([vertex.get_path() for vertex in graph.vertices()])  # set svih stranica
 
+            a = Set(graph.vertices(as_path=True))
             #  trie.find vraca Result tip moramo pretvoriti u path
             #  b ce biti skup stranica koje sadrze tu rec
             b = Set([x.get_path() for x in trie.find(kriterijum[0])])
