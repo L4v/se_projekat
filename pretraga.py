@@ -4,9 +4,7 @@ from sets import Set
 def pretraga_upita(trie, graph, kriterijum, logical, not_word):
     if not_word == 1:
         a = Set([Result(i, 0) for i in graph.vertices(as_path=True)])  # skup svih stranica
-        b = Set(trie.find(kriterijum[0]))
-        #  trie.find vraca Result tip moramo pretvoriti u path
-        #  b ce biti skup stranica koje sadrze tu rec
+        b = Set(trie.find(kriterijum[0]))  #  b ce biti skup stranica koje sadrze tu rec
         return a - b
 
     if logical == 'and':
@@ -25,5 +23,5 @@ def pretraga_upita(trie, graph, kriterijum, logical, not_word):
                 return a
             else:
                 for i in range(2, length):
-                    rez = a + Set(trie.find(kriterijum[i]))
-                return rez
+                    a = a + Set(trie.find(kriterijum[i]))
+                return a
