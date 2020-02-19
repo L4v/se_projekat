@@ -13,19 +13,31 @@ class SetIterator:
             raise StopIteration
 
 
+# TODO(Jovan): Bolja provera duplikata?
 class Set():
     def __init__(self, values=None):
-        self._values = list(dict.fromkeys(values)) if values is not None else []
+        if values is None:
+            values = []
+        self._values = values
+        self._remove_duplicates()
 
     def add(self, item):
         if item not in self._values:
             self._values.append(item)
+
+    def _remove_duplicates(self):
+        self._values = list(dict.fromkeys(self._values))
 
     def __len__(self):
         return len(self._values)
 
     def __iter__(self):
         return SetIterator(self)
+
+    def __setitem__(self, index, value):
+        if index >= 0 and index < len(self._values):
+            self._values[index] = value
+            self._remove_duplicates()
 
     # TODO(Jovan): Dodati throw???
     def __getitem__(self, index):

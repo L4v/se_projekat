@@ -5,6 +5,7 @@ from unos import unos_upita
 from graph.graph import Graph
 from graph.vertex import Vertex
 from search_result import SearchDisplay
+from ranker import rank_pages
 
 import sys
 import os
@@ -106,6 +107,7 @@ def page_menu(search_display):
             '\t2. Promeni broj rezultata po strani',
             '\t0. Nazad',
             ]
+    # TODO(Jovan): remember page_num?
     page_num = 1
     while True:
         search_display.display(page_num)
@@ -156,8 +158,8 @@ def main():
             if is_loaded:
                 results = unos_upita(trie, graph)
                 # TODO(Jovan): Pagerank ovde na results i onda prikaz
-                # TODO(Jovan): Isto ucinit set iterable?
-                search_result = SearchDisplay(results._values)
+                ranked = rank_pages(graph, results._values)
+                search_result = SearchDisplay(ranked._values)
                 page_menu(search_result)
 
             else:
