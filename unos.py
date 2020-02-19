@@ -16,7 +16,7 @@ def unos_upita(trie, graph):
         kriterijum = []  # reci za pretragu
         logical = None  # logicki operator
         count_logical = 0  # samo jedan logicki operator moze biti unet
-        not_word = 0  # ako je unos tipa 'not word'
+        not_word = False  # ako je unos tipa 'not word'
 
         # proveravamo da li je unet i logicki operator
         for token in tokens:
@@ -32,7 +32,7 @@ def unos_upita(trie, graph):
 
         # ukoliko imamo unos tipa 'not word'
         if logical == tokens[0] and logical == 'not' and len(kriterijum) == 1:
-            not_word = 1
+            not_word = True
             return pretraga_upita(trie, graph, kriterijum, logical, not_word)
 
         # provera unosa
