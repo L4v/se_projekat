@@ -21,6 +21,18 @@ class RankResult:
             self._score += other._score
             return self
 
+    def __lt__(self, other):
+        return self._score < other._score
+
+    def __le__(self, other):
+        return self._score <= other._score
+
+    def __gt__(self, other):
+        return self._score > other._score
+
+    def __ge__(self, other):
+        return self._score >= other._score
+
     def __str__(self):
         return self._path + ': ' + str(self._score)
 

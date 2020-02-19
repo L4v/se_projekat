@@ -41,8 +41,7 @@ class Set():
 
     # TODO(Jovan): Dodati throw???
     def __getitem__(self, index):
-        if index >= 0 and index < len(self._values):
-            return self._values[index]
+        return self._values[index]
 
     # NOTE(Jovan): AND '*'
     def __mul__(self, other):

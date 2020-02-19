@@ -6,6 +6,8 @@ from graph.graph import Graph
 from graph.vertex import Vertex
 from search_result import SearchDisplay
 from ranker import rank_pages
+from timsort import timsort
+from sets import Set
 
 import sys
 import os
@@ -156,10 +158,10 @@ def main():
 
         elif option == 2:
             if is_loaded:
-                results = unos_upita(trie, graph)
-                # TODO(Jovan): Pagerank ovde na results i onda prikaz
-                ranked = rank_pages(graph, results._values)
-                search_result = SearchDisplay(ranked._values)
+                results = unos_upita(trie, graph)._values
+                ranked = rank_pages(graph, results)._values
+                timsort(ranked)
+                search_result = SearchDisplay(ranked)
                 page_menu(search_result)
 
             else:

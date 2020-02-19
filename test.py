@@ -1,9 +1,8 @@
-from sets import Set
+from timsort import timsort, insertion_sort
 
 if __name__ == '__main__':
-    a = Set([1, 2, 3, 4])
-    for i, item in enumerate(a):
-        if item == 4:
-            a[i] += 1
-
-    print(a)
+    items = []
+    for i in range(0, 100):
+        items.append(i)
+    timsort(items)
+    print(items)
