@@ -13,7 +13,7 @@ def pretraga_upita(trie, graph, kriterijum, logical, not_word):
         for i1 in a:
             for i2 in b:
                 if i1 == i2:
-                    i1 += i2
+                    i1 += i2.get_count()
 
         return a * b
     elif logical == 'or':
@@ -22,7 +22,7 @@ def pretraga_upita(trie, graph, kriterijum, logical, not_word):
         for i1 in a:
             for i2 in b:
                 if i1 == i2:
-                    i1 += i2
+                    i1 += i2.get_count()
 
         return a + b
     elif logical == 'not':
