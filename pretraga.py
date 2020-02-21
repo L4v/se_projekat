@@ -12,8 +12,8 @@ def pretraga_upita(trie, graph, kriterijum, logical, not_word):
         b = Set(trie.find(kriterijum[1]))
 
         tmp = a * b
-        for i in a:
-            if i in b:
+        for i in tmp:
+            if i in a and i in b:
                 tmp[tmp.index(i)] += b[b.index(i)]
 
         return tmp
@@ -22,8 +22,8 @@ def pretraga_upita(trie, graph, kriterijum, logical, not_word):
         b = Set(trie.find(kriterijum[1]))
 
         tmp = a + b
-        for i in a:
-            if i in b:
+        for i in tmp:
+            if i in a and i in b:
                 tmp[tmp.index(i)] += b[b.index(i)]
 
         return tmp
