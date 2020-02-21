@@ -4,10 +4,9 @@ from trie import Trie
 from unos import unos_upita
 from graph.graph import Graph
 from graph.vertex import Vertex
-from search_result import SearchDisplay
+from search_display import SearchDisplay
 from ranker import rank_pages
 from timsort import timsort
-from sets import Set
 
 import sys
 import os
@@ -158,8 +157,8 @@ def main():
 
         elif option == 2:
             if is_loaded:
-                results = unos_upita(trie, graph)._values
-                ranked = rank_pages(graph, results)._values
+                results = unos_upita(trie, graph).values
+                ranked = rank_pages(graph, results).values
                 timsort(ranked)
                 search_result = SearchDisplay(ranked)
                 page_menu(search_result)

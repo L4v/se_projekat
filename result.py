@@ -5,8 +5,11 @@ class Result:
         self._path = path
         self._count = 1 if count is None else count
 
+    def inc(self, amount):
+        self._count += amount
+
     def __iadd__(self, other):
-        self._count += other
+        self._count += other._count
         return self
 
     def __eq__(self, other):

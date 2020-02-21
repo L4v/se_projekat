@@ -68,10 +68,14 @@ def rank_pages(graph, pages, d=0.85, iter_max=100):
                 new_ranks[pi] += d * (ranks[pj] / L[pj])
         ranks = new_ranks
     res = Set()
-    pages = dict(zip([p.get_path() for p in pages], [p.get_count() for p in pages]))
+    pages = dict(zip([p.get_path() for p in pages],
+                     [p.get_count() for p in pages]))
     # NOTE(Jovan): Uticaj PR-a na rank, empirisjki odrediti
     PR_WEIGHT = 1.0 / 3.0
+    # NOTE(Jovan): Uticaj backlinkova sa trazenim upitom
+    BL_WEIGHT = 1.0 / 3.0
     for r in ranks:
-        rank = pages[r] * (1 + (ranks[r] - 1) * PR_WEIGHT)
+        rank = pages[r] * (1 + (ranks[r] - 1) * PR_WEIGHT
+                           + BL_WEIGHT * sum(backlinks[r]))
         res.add(RankResult(r, rank))
     return res

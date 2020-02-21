@@ -5,8 +5,8 @@ class SetIterator:
         self._index = 0
 
     def __next__(self):
-        if self._index < len(self._set._values):
-            result = self._set._values[self._index]
+        if self._index < len(self._set.values):
+            result = self._set.values[self._index]
             self._index += 1
             return result
         else:
@@ -25,6 +25,13 @@ class Set():
         if item not in self._values:
             self._values.append(item)
 
+    @property
+    def values(self):
+        return self._values
+
+    def index(self, item):
+        return self._values.index(item)
+
     def _remove_duplicates(self):
         self._values = list(dict.fromkeys(self._values))
 
@@ -39,7 +46,6 @@ class Set():
             self._values[index] = value
             self._remove_duplicates()
 
-    # TODO(Jovan): Dodati throw???
     def __getitem__(self, index):
         return self._values[index]
 
