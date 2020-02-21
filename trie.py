@@ -12,7 +12,7 @@ class TrieNode:
         if path not in self.pages:
             self.pages[path] = page
         else:
-            self.pages[path] += 1
+            self.pages[path].inc(1)
 
     def put(self, ch):
         self.children[ch] = TrieNode()

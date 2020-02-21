@@ -10,21 +10,23 @@ def pretraga_upita(trie, graph, kriterijum, logical, not_word):
     if logical == 'and':
         a = Set(trie.find(kriterijum[0]))
         b = Set(trie.find(kriterijum[1]))
-        for i1 in a:
-            for i2 in b:
-                if i1 == i2:
-                    i1 += i2.get_count()
 
-        return a * b
+        tmp = a * b
+        for i in a:
+            if i in b:
+                tmp[tmp.index(i)] += b[b.index(i)]
+
+        return tmp
     elif logical == 'or':
         a = Set(trie.find(kriterijum[0]))
         b = Set(trie.find(kriterijum[1]))
-        for i1 in a:
-            for i2 in b:
-                if i1 == i2:
-                    i1 += i2.get_count()
 
-        return a + b
+        tmp = a + b
+        for i in a:
+            if i in b:
+                tmp[tmp.index(i)] += b[b.index(i)]
+
+        return tmp
     elif logical == 'not':
         return Set(trie.find(kriterijum[0])) - Set(trie.find(kriterijum[1]))
     else:  # obicna pretraga
