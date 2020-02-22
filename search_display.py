@@ -3,7 +3,7 @@ class SearchDisplay:
     def __init__(self, results, count=None):
         self._results = results
         self._pages = []
-        self._count = 1 if count is None or count < 1 else count
+        self._count = 10 if count is None or count < 1 else count
 
     def set_count(self, count):
         if count <= 1:
