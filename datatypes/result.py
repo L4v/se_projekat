@@ -1,3 +1,4 @@
+# result.py
 class Result:
     __slots__ = ['_path', '_count']
 
@@ -18,6 +19,18 @@ class Result:
 
     def __iadd__(self, other):
         return Result(self._path, self._count + other._count)
+
+    def __lt__(self, other):
+        return self._count < other._count
+
+    def __le__(self, other):
+        return self._count <= other._count
+
+    def __gt__(self, other):
+        return self._count > other._count
+
+    def __ge__(self, other):
+        return self._count >= other._count
 
     def __eq__(self, other):
         return isinstance(other, Result) and self._path == other._path

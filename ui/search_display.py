@@ -4,6 +4,11 @@ class SearchDisplay:
         self._results = results
         self._pages = []
         self._count = 10 if count is None or count < 1 else count
+        self._page_count = 0
+
+    @property
+    def page_count(self):
+        return self._page_count
 
     def set_count(self, count):
         if count <= 1:
@@ -16,6 +21,7 @@ class SearchDisplay:
     def _paginate(self):
         self._pages = [self._results[i:i+self._count]
                        for i in range(0, len(self._results), self._count)]
+        self._page_count = len(self._pages)
 
     def display(self, page_num):
         self._paginate()

@@ -1,6 +1,5 @@
-from pretraga import pretraga_upita
-from sets import Set
-from result import Result
+from utils.pretraga import pretraga_upita
+
 
 def unos_upita(trie, graph):
 

@@ -1,5 +1,4 @@
 # timsort.py
-from sets import Set
 ''' NOTE(Jovan): Timsort algoritam
     Osobine:
         -O(nLogn) vreme soritranja
@@ -7,7 +6,7 @@ from sets import Set
     Nacin rada:
         Niz koji se sortira deli se na blokove (RUN)
         RUN-ovi se sortiraju pomocu Insertion sorta
-        Posle sortiranja RUN-ova, spajaju se pomocu 
+        Posle sortiranja RUN-ova, spajaju se pomocu
         Merge sort-a
 
         Najbolje je da velicina RUN-a bude stepen 2
@@ -72,4 +71,3 @@ def timsort(arr):
             right = min((left + 2*size - 1), (n-1))
             _merge(arr, left, mid, right)
         size *= 2
-

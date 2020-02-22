@@ -1,5 +1,6 @@
-from result import Result
-from sets import Set
+from datatypes.result import Result
+from datatypes.sets import Set
+
 
 def pretraga_upita(trie, graph, kriterijum, logical, not_word):
     if not_word == True:

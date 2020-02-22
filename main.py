@@ -1,12 +1,12 @@
 # main.py
-from parser import Parser
-from trie import Trie
-from unos import unos_upita
-from graph.graph import Graph
-from graph.vertex import Vertex
-from search_display import SearchDisplay
-from ranker import rank_pages
-from timsort import timsort
+from utils.parser import Parser
+from datatypes.trie import Trie
+from ui.unos import unos_upita
+from datatypes.graph.graph import Graph
+from datatypes.graph.vertex import Vertex
+from ui.search_display import SearchDisplay
+from utils.ranker import rank_pages
+from utils.timsort import timsort
 
 import sys
 import os
@@ -38,11 +38,11 @@ def menu_header(text, max_len=51, padding=3):
     print('='*decor_len + ' '*padding + text + ' '*padding + '='*decor_len)
 
 
+# NOTE(Jovan): Glavni meni
 def menu():
     options = [
             'Odaberite opciju:',
-            '\t1.Odabir root direktorijuma ',
-            '\t2.Pretraga reci',
+            '\t1.Pretraga reci',
             '\t0.Izlaz'
             ]
     print('\n'.join(options))
@@ -103,9 +103,11 @@ def page_menu(search_display):
             'Odaberite opciju:',
             '\t1. Prikazi odredjenu stranu',
             '\t2. Promeni broj rezultata po strani',
+            '\t3. Sledeca',
+            '\t4. Prethodna',
             '\t0. Nazad',
             ]
-    # TODO(Jovan): remember page_num?
+    # NOTE(Jovan): Pocetna strana je 1.
     page_num = 1
     while True:
         search_display.display(page_num)
@@ -118,12 +120,14 @@ def page_menu(search_display):
             except Exception:
                 print('Unos mora biti broj!')
 
+        # NOTE(Jovan): Unos strane
         if option == 1:
             try:
                 page_num = int(input('Broj strane: '))
             except Exception:
                 print('Unos mora biti broj!')
 
+        # NOTE(Jovan): Promena broja rezultata po strani
         if option == 2:
             try:
                 num_results = int(input('Broj rezultata: '))
@@ -132,35 +136,36 @@ def page_menu(search_display):
                 print('Unos mora biti broj!')
             search_display.set_count(num_results)
 
+        # NOTE(Jovan): Sledeca strana
+        if option == 3:
+            max_num = search_display.page_count
+            page_num = page_num + 1 if page_num < max_num else max_num
+
+        # NOTE(Jovan): Prethodna strana
+        if option == 4:
+            page_num = page_num - 1 if page_num > 1 else 1
+
+        # NOTE(Jovan): Izlaz
         if option == 0:
             break
 
 
 def main():
     # NOTE(Jovan): Glavni loop
-    is_loaded = False
     graph = Graph()
     trie = Trie()
+    load_graph(graph)
+    load_trie(graph, trie)
     while True:
         menu_header('GLAVNI MENI')
-        if not is_loaded:
-            print('WARNING: ROOT dir nije odabran!')
         option = menu()
+
         if option == 1:
-            load_graph(graph)
-            load_trie(graph, trie)
-            is_loaded = True
-
-        elif option == 2:
-            if is_loaded:
-                results = unos_upita(trie, graph).values
-                ranked = rank_pages(graph, results).values
-                timsort(ranked)
-                search_result = SearchDisplay(ranked)
-                page_menu(search_result)
-
-            else:
-                print('Potrebno je prvo odabrati root direktorijum')
+            results = unos_upita(trie, graph).values
+            ranked = rank_pages(graph, results).values
+            timsort(ranked)
+            search_result = SearchDisplay(ranked)
+            page_menu(search_result)
         elif option == 0:
             break
         else:

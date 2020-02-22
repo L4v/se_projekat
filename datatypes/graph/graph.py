@@ -1,5 +1,5 @@
 # graph/graph.py
-from sets import Set
+from datatypes.sets import Set
 
 
 class Graph:

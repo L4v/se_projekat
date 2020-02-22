@@ -1,4 +1,4 @@
-from result import Result
+from datatypes.result import Result
 
 
 class TrieNode:
