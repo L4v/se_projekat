@@ -7,6 +7,8 @@ from datatypes.graph.vertex import Vertex
 from ui.search_display import SearchDisplay
 from utils.ranker import rank_pages
 from utils.timsort import timsort
+from ui.colors import Colors as col
+from ui.custom_print import err
 
 import sys
 import os
@@ -36,7 +38,9 @@ def loading_rotation(current, string=''):
 def menu_header(text, max_len=51, padding=3):
     decor_len = (max_len - len(text) - 2 * padding)//2
     decor_len = 0 if decor_len <= 0 else decor_len
-    print('='*decor_len + ' '*padding + text + ' '*padding + '='*decor_len)
+    print('='*decor_len + ' '*padding
+          + col.bold + text + col.rst
+          + ' '*padding + '='*decor_len)
 
 
 # NOTE(Jovan): Glavni meni
@@ -52,7 +56,7 @@ def menu():
             option = int(input('>'))
             break
         except Exception:
-            print('Unos mora biti broj!')
+            err('Unos mora biti broj')
     return option
 
 
@@ -66,10 +70,10 @@ def load_graph(graph):
                 if os.path.isdir(curr) or curr.endswith('.html'):
                     break
             else:
-                print('Nije validna putanja')
+                err('Nije validna putanja')
             break
         else:
-            print('Nije validna putanja')
+            err('Nije validna putanja')
     current = 0
     for root, dirs, files in os.walk(start):
         for file in files:
@@ -81,7 +85,7 @@ def load_graph(graph):
                 # NOTE(Jovan): Informacije o stranici pretvaraju se u vertex
                 vertex = Vertex(path_root + os.path.sep + file, words, links)
                 graph.add_vertex(vertex)
-    loading_rotation(current, 'Ucitavanje zavrseno')
+    loading_rotation(current, col.bold+col.green+'Ucitavanje zavrseno'+col.rst)
     print()
     return graph.vertex_count()
 
@@ -96,7 +100,7 @@ def load_trie(graph, trie):
             trie.add(word.lower(), vertex.path)
         count += 1
     count = total
-    progress_bar(count, total, 'Stablo ucitano')
+    progress_bar(count, total, col.bold+col.green+'Stablo ucitano'+col.rst)
     print()
 
 
@@ -120,14 +124,14 @@ def page_menu(search_display):
                 option = int(input('>'))
                 break
             except Exception:
-                print('Unos mora biti broj!')
+                err('Unos mora biti broj')
 
         # NOTE(Jovan): Unos strane
         if option == 1:
             try:
                 page_num = int(input('Broj strane: '))
             except Exception:
-                print('Unos mora biti broj!')
+                err('Unos mora biti broj')
 
         # NOTE(Jovan): Promena broja rezultata po strani
         if option == 2:
@@ -135,7 +139,7 @@ def page_menu(search_display):
                 num_results = int(input('Broj rezultata: '))
                 page_num = 1
             except Exception:
-                print('Unos mora biti broj!')
+                err('Unos mora biti broj')
             search_display.set_count(num_results)
 
         # NOTE(Jovan): Sledeca strana
@@ -161,7 +165,7 @@ def main():
         if count > 0:
             break
         else:
-            print('Nije pronadjena nijedna .html stranica, probajte drugi dir')
+            err('Nije pronadjena nijedna .html stranica')
 
     load_trie(graph, trie)
     while True:
@@ -177,7 +181,7 @@ def main():
         elif option == 0:
             break
         else:
-            print('Nepoznata opcija')
+            err('Nepoznata opcija')
 
 
 if __name__ == "__main__":

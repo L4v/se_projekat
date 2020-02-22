@@ -1,3 +1,7 @@
+# search_display.py
+from ui.colors import Colors as col
+
+
 class SearchDisplay:
 
     def __init__(self, results, count=None):
@@ -29,9 +33,8 @@ class SearchDisplay:
         if page_num > page_max or page_num <= 0:
             print(f'Strana {page_num} ne postoji!')
             return
-        print(f'#### STRANA {page_num}/{page_max} ####\n')
         page_len = len(self._pages[0])
         for i, page in enumerate(self._pages[page_num-1],
                                  start=(1 + (page_num-1) * page_len)):
-            print(f'{i} - {page}')
-        print(f'\n#### KRAJ STRANE {page_num}/{page_max} ####')
+            print(f'\t{col.bold}{i}{col.rst} - {page}')
+        print(f'\n{col.bold}STRANA {page_num}/{page_max}{col.rst}')

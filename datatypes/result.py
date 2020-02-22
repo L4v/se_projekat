@@ -1,4 +1,7 @@
 # result.py
+from ui.colors import Colors as col
+
+
 class Result:
     __slots__ = ['_path', '_count']
 
@@ -39,4 +42,4 @@ class Result:
         return hash(self._path)
 
     def __str__(self):
-        return self._path + ': ' + str(self._count)
+        return col.under + col.yellow + self._path + col.rst + ': ' + col.bold + str(self._count) + col.rst
