@@ -5,21 +5,22 @@ class Result:
         self._path = path
         self._count = 1 if count is None else count
 
+    @property
+    def path(self):
+        return self._path
+
+    @property
+    def count(self):
+        return self._count
+
     def inc(self, amount):
         self._count += amount
 
     def __iadd__(self, other):
-        self._count += other._count
-        return self
+        return Result(self._path, self._count + other._count)
 
     def __eq__(self, other):
         return isinstance(other, Result) and self._path == other._path
-
-    def get_count(self):
-        return self._count
-
-    def get_path(self):
-        return self._path
 
     def __hash__(self):
         return hash(self._path)

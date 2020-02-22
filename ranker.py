@@ -10,10 +10,12 @@ class RankResult:
         self._path = path
         self._score = 0 if score is None else score
 
-    def get_path(self):
+    @property
+    def path(self):
         return self._path
 
-    def get_score(self):
+    @property
+    def score(self):
         return self._score
 
     def __iadd__(self, other):
@@ -53,10 +55,10 @@ def rank_pages(graph, pages, d=0.85, iter_max=100):
     L = {}
     # NOTE(Jovan): Inicijalne vrednosti
     for p in pages:
-        path = p.get_path()
+        path = p.path
         ranks[path] = 1.0 / N
         backlinks[path] = graph.get_backlink(graph.get_vertex(path))
-        L[path] = len(graph._vertices[path].get_links())
+        L[path] = len(graph._vertices[path].links)
     # NOTE(Jovan): Iterativno odredjivanje PageRank-a
     # NOTE(Jovan): pi - renutna, pj - backlink
     for _ in range(iter_max):
@@ -68,8 +70,8 @@ def rank_pages(graph, pages, d=0.85, iter_max=100):
                 new_ranks[pi] += d * (ranks[pj] / L[pj])
         ranks = new_ranks
     res = Set()
-    pages = dict(zip([p.get_path() for p in pages],
-                     [p.get_count() for p in pages]))
+    pages = dict(zip([p.path for p in pages],
+                     [p.count for p in pages]))
     # NOTE(Jovan): Uticaj PR-a na rank, empirisjki odrediti
     PR_WEIGHT = 1.0 / 3.0
     # NOTE(Jovan): Uticaj backlinkova sa trazenim upitom

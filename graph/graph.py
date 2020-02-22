@@ -12,7 +12,7 @@ class Graph:
     def add_vertex(self, vertex):
         # TODO(Jovan): Nepotrebno?
         if vertex not in self._vertices:
-            self._vertices[vertex.get_path()] = vertex
+            self._vertices[vertex.path] = vertex
 
     # NOTE(Jovan): as_path -> ako je true vraca samo putanja, inace
     # vraca objekat vertex
@@ -24,7 +24,7 @@ class Graph:
     def edges(self):
         edges = {}
         for v in self._vertices:
-            edges[v] = v.get_links()
+            edges[v] = v.links
         return edges
 
     def get_backlink(self, vertex):
@@ -45,6 +45,6 @@ class Graph:
         ret = ''
         for v in self._vertices:
             ret += v
-            for l in v.get_links():
+            for l in v.links:
                 ret += '\t->' + l
         return ret

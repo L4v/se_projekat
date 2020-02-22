@@ -8,7 +8,7 @@ class TrieNode:
         self.pages = {}
 
     def add_page(self, page):  # dodaj stranicu za neku rec
-        path = page.get_path()
+        path = page.path
         if path not in self.pages:
             self.pages[path] = page
         else:
