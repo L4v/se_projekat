@@ -16,6 +16,7 @@ import os
 # https://gist.github.com/vladignatyev/06860ec2040cb497f0f3
 def progress_bar(count, total, suffix=''):
     bar_len = 60
+    total = total if total > 0 else 1
     filled_len = int(round(bar_len * count / float(total)))
     percents = round(100.0 * count / float(total), 1)
     bar = '█' * filled_len + ' ' * (bar_len - filled_len)
@@ -82,6 +83,7 @@ def load_graph(graph):
                 graph.add_vertex(vertex)
     loading_rotation(current, 'Ucitavanje zavrseno')
     print()
+    return graph.vertex_count()
 
 
 def load_trie(graph, trie):
@@ -154,7 +156,13 @@ def main():
     # NOTE(Jovan): Glavni loop
     graph = Graph()
     trie = Trie()
-    load_graph(graph)
+    while True:
+        count = load_graph(graph)
+        if count > 0:
+            break
+        else:
+            print('Nije pronadjena nijedna .html stranica, probajte drugi dir')
+
     load_trie(graph, trie)
     while True:
         menu_header('GLAVNI MENI')
