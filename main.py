@@ -57,7 +57,6 @@ def menu():
 
 def load_graph(graph):
     parser = Parser()
-    # TODO(Jovan): Proveriti da li rade provere
     while True:
         start = input('Unesite root dir: ')
         if os.path.isdir(start):
@@ -70,8 +69,6 @@ def load_graph(graph):
             break
         else:
             print('Nije validna putanja')
-    # TODO(Jovan): Generisanje ID-a za svaki page kako se ne bi
-    # moralo ucitavati vise puta?
     current = 0
     for root, dirs, files in os.walk(start):
         for file in files:
@@ -139,7 +136,6 @@ def page_menu(search_display):
             break
 
 
-# TODO IMPORTANT(Jovan): IMPLEMENTIRATI BOLJU VARIJANTU OD os.walk()
 def main():
     # NOTE(Jovan): Glavni loop
     is_loaded = False

@@ -10,7 +10,6 @@ class Graph:
         te se preradjuje u cvor i veze
     """
     def add_vertex(self, vertex):
-        # TODO(Jovan): Nepotrebno?
         if vertex not in self._vertices:
             self._vertices[vertex.path] = vertex
 

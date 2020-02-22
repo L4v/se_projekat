@@ -20,8 +20,7 @@ class RankResult:
 
     def __iadd__(self, other):
         if other == self:
-            self._score += other._score
-            return self
+            return RankResult(self._path, self._score + other._score)
 
     def __lt__(self, other):
         return self._score < other._score

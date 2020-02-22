@@ -13,7 +13,7 @@ class SetIterator:
             raise StopIteration
 
 
-# TODO(Jovan): Bolja provera duplikata?
+# TODO(Jovan): Dict?
 class Set():
     def __init__(self, values=None):
         if values is None:
