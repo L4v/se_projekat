@@ -16,7 +16,7 @@ def rank_pages(graph, pages, d=0.85, iter_max=100):
     for p in pages:
         path = p.path
         ranks[path] = 1.0 / N
-        backlinks[path] = graph.get_backlink(graph.get_vertex(path))
+        backlinks[path] = graph.get_backlink(graph.get_vertex(path, as_path=True))
         L[path] = len(graph._vertices[path].links)
     # NOTE(Jovan): Iterativno odredjivanje PageRank-a
     # NOTE(Jovan): pi - trenutna, pj - backlink
@@ -39,6 +39,6 @@ def rank_pages(graph, pages, d=0.85, iter_max=100):
         rank = pages[r] * (
                            1
                            + (ranks[r] - 1) * PR_WEIGHT
-                           + sum(backlinks[r]) * BL_WEIGHT)
+                           + len(backlinks[r]) * BL_WEIGHT)
         res.add(Result(r, rank))
     return res

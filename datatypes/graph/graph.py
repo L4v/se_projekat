@@ -1,5 +1,4 @@
 # graph/graph.py
-from datatypes.sets import Set
 
 
 class Graph:
@@ -26,16 +25,28 @@ class Graph:
             edges[v] = v.links
         return edges
 
-    def get_backlink(self, vertex):
-        ret = Set()
-        if vertex not in self._vertices:
-            return ret
-        for v in self._vertices:
-            if vertex in self._vertices[v]:
-                ret.add(v)
+    def gen_backlinks(self):
+        for v1 in self._vertices:
+            tmp = []
+            for v2 in self._vertices:
+                if v2 == v1:
+                    continue
+                if v1 in self._vertices[v2].links:
+                    tmp.append(v2)
+            tmp = list(dict.fromkeys(tmp))
+            self._vertices[v1].backlinks = tmp
 
-    def get_vertex(self, path):
-        return self._vertices.get(path, None)
+    def get_backlink(self, vertex):
+        if vertex in self._vertices:
+            return self._vertices[vertex].backlinks
+        else:
+            return []
+
+    def get_vertex(self, path, as_path=False):
+        if as_path:
+            return self._vertices[path].path or None
+        else:
+            return self._vertices[path] or None
 
     def vertex_count(self):
         return len(self._vertices)

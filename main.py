@@ -81,10 +81,12 @@ def load_graph(graph):
             if file[-5:] == '.html':
                 path = root + os.path.sep + file
                 path_root = os.path.abspath(os.path.dirname(path))
+                filepath = path_root + os.path.sep + file
                 links, words = parser.parse(path)
                 # NOTE(Jovan): Informacije o stranici pretvaraju se u vertex
-                vertex = Vertex(path_root + os.path.sep + file, words, links)
+                vertex = Vertex(filepath, words, links)
                 graph.add_vertex(vertex)
+    graph.gen_backlinks()
     loading_rotation(current, col.bold+col.green+'Ucitavanje zavrseno'+col.rst)
     print()
     return graph.vertex_count()
