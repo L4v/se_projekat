@@ -5,19 +5,24 @@ from datatypes.result import Result
 
 # NOTE(Jovan): Funkcija za racunanje ranga
 def rank_pages(graph, pages, d=0.85, iter_max=100):
+    # NOTE(Jovan): Cuvaju se svi rangovi
     ranks = {}
+    # NOTE(Jovan): Ukupan broj linkova
     N = graph.vertex_count()
+    # NOTE(Jovan): Povratni linkovi
     backlinks = {}
     # NOTE(Jovan): Damping factor
     factor = (1.0 - d) / N
-    # NOTE(Jovan): Broj linkova u odredjenoj stranici
+    # NOTE(Jovan): Broj linkova po stranici
     L = {}
+
     # NOTE(Jovan): Inicijalne vrednosti
-    for p in pages:
-        path = p.path
+    for v in graph.vertices():
+        path = v.path
         ranks[path] = 1.0 / N
-        backlinks[path] = graph.get_backlink(graph.get_vertex(path, as_path=True))
-        L[path] = len(graph._vertices[path].links)
+        backlinks[path] = graph.get_backlink(v.path)
+        L[path] = len(v.links)
+
     # NOTE(Jovan): Iterativno odredjivanje PageRank-a
     # NOTE(Jovan): pi - trenutna, pj - backlink
     for _ in range(iter_max):
@@ -35,10 +40,12 @@ def rank_pages(graph, pages, d=0.85, iter_max=100):
     PR_WEIGHT = 1.0 / 3.0
     # NOTE(Jovan): Uticaj backlinkova sa trazenim upitom
     BL_WEIGHT = 1.0 / 3.0
-    for r in ranks:
-        rank = pages[r] * (
-                           1
-                           + (ranks[r] - 1) * PR_WEIGHT
-                           + len(backlinks[r]) * BL_WEIGHT)
+    for r in pages:
+        c = pages[r]
+        blsum = sum([pages.get(i, 0) for i in backlinks[r]])
+        if c != 0:
+            rank = pages[r] * (1 + ranks[r] * PR_WEIGHT) + blsum * BL_WEIGHT
+        else:
+            rank = ranks[r]
         res.add(Result(r, rank))
     return res

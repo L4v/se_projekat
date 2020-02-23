@@ -42,11 +42,8 @@ class Graph:
         else:
             return []
 
-    def get_vertex(self, path, as_path=False):
-        if as_path:
-            return self._vertices[path].path or None
-        else:
-            return self._vertices[path] or None
+    def get_vertex(self, path):
+        return self._vertices[path] or None
 
     def vertex_count(self):
         return len(self._vertices)
