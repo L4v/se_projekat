@@ -5,7 +5,7 @@ from ui.unos import unos_upita
 from datatypes.graph.graph import Graph
 from datatypes.graph.vertex import Vertex
 from ui.search_display import SearchDisplay
-from utils.ranker import rank_pages
+from utils.ranker import Ranker
 from utils.timsort import timsort
 from ui.colors import Colors as col
 from ui.custom_print import err
@@ -169,6 +169,7 @@ def main():
         else:
             err('Nije pronadjena nijedna .html stranica')
 
+    ranker = Ranker(graph)
     load_trie(graph, trie)
     while True:
         menu_header('GLAVNI MENI')
@@ -176,7 +177,7 @@ def main():
 
         if option == 1:
             results = unos_upita(trie, graph).values
-            ranked = rank_pages(graph, results).values
+            ranked = ranker.rank_pages(results).values
             timsort(ranked)
             search_result = SearchDisplay(ranked)
             page_menu(search_result)

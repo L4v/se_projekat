@@ -1,13 +1,12 @@
 # graph/vertex.py
 class Vertex(object):
 
-    __slots__ = ('_path', '_words', '_links', '_rank', '_backlinks')
+    __slots__ = ('_path', '_words', '_links', '_rank')
 
     def __init__(self, path, words=None, links=None, links_to=None):
         self._path = path
         self._words = [] if words is None else words
         self._links = [] if links is None else links
-        self._backlinks = []
 
     @property
     def path(self):
@@ -20,14 +19,6 @@ class Vertex(object):
     @property
     def links(self):
         return self._links
-
-    @property
-    def backlinks(self):
-        return self._backlinks
-
-    @backlinks.setter
-    def backlinks(self, b):
-        self._backlinks = b
 
     def __str__(self):
         return self._path

@@ -4,6 +4,7 @@
 class Graph:
     def __init__(self):
         self._vertices = {}
+        self._backlinks = {}
 
     """ NOTE(Jovan): Stranica se ocekuje kao uredjeni par (reci, linkovi)
         te se preradjuje u cvor i veze
@@ -25,6 +26,10 @@ class Graph:
             edges[v] = v.links
         return edges
 
+    @property
+    def backlinks(self):
+        return self._backlinks
+
     def gen_backlinks(self):
         for v1 in self._vertices:
             tmp = []
@@ -34,9 +39,9 @@ class Graph:
                 if v1 in self._vertices[v2].links:
                     tmp.append(v2)
             tmp = list(dict.fromkeys(tmp))
-            self._vertices[v1].backlinks = tmp
+            self._backlinks[v1] = tmp
 
-    def get_backlink(self, vertex):
+    def get_backlinks(self, vertex):
         if vertex in self._vertices:
             return self._vertices[vertex].backlinks
         else:
