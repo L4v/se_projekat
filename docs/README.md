@@ -411,10 +411,10 @@ se tražena reč nalazi, u suprotnom vraća praznu listu
 
 Primer uspešne pretrage
 
-![](image/image3.png){width="5.038252405949256in"
+![](images/image3.png){width="5.038252405949256in"
 height="4.234375546806649in"}
 
 Primer neuspešne pretrage
 
-![](image/image4.png){width="2.994792213473316in"
+![](images/image4.png){width="2.994792213473316in"
 height="3.2997156605424323in"}
