@@ -4,11 +4,11 @@
 
 Rang stranice određen je sledećom formulom:
 
-R = QC \* (1 + pr\_w \* PR + bl\_w \* BL)
+![R = QC \* (1 + pr\_w \* PR + bl\_w \* BL)](eq1.png)
 
 Poseban slučaj ako je QC = 0:
 
-R = PR
+![R = PR](eq2.png)
 
 **R** - Rang stranice
 
@@ -29,7 +29,7 @@ Query count je dobavljen od trie-a i poznat je. Broj reči u
 backlink-ovima je takođe poznat, jedino što treba da se izračuna jeste
 PageRank; on se računa iterativno.
 
-PR(p~i~, t+1) = $\frac{1\  - \ d}{N}$ +$\frac{PR(pj,\ t)}{L(pj)}$
+![PR racun](eq3.png)
 
 N - ukupan broj čvorova u grafu
 
@@ -216,18 +216,15 @@ A - B
 
 **PAGINACIJA**
 
-Rangirani i sortirani rezultati se prosleđuju u SearchDisplay klasu
+```python
+class SearchDisplay:
 
-  --------------------------------------------------------------
-  class SearchDisplay:\
-  \
-  def \_\_init\_\_(self, results, count=None):\
-  self.\_results = results\
-  self.\_pages = \[\]\
-  self.\_count = 10 if count is None or count \< 1 else count\
-  self.\_page\_count = 0
-
-  --------------------------------------------------------------
+    def __init__(self, results, count=None):
+            self._results = results
+            self._pages = []
+            self._count = 10 if count is None or count < 1 else count
+            self._page_count = 0
+```
 
 results - nepodeljena lista rezultata
 
@@ -239,14 +236,13 @@ page\_count - broj strana, promenljivo
 
 Strane se dele pomoću sledeće funkcije:
 
-+------------------------------------------------------+
-| def \_paginate(self):\                               |
-| self.\_pages = \[self.\_results\[i:i+self.\_count\]\ |
-| for i in range(0, len(self.\_results),               |
-|                                                      |
-| self.\_count)\]\                                     |
-| self.\_page\_count = len(self.\_pages)               |
-+------------------------------------------------------+
+```python
+def _paginate(self):
+          self._pages = [self._results[i:i+self._count]
+                       for i in range(0, len(self._results),
+                                     self._count)]
+          self._page_count = len(self._pages)
+```
 
 Stvara se nova lista koja u sebi sadrži podliste određene dužine (count)
 i ažurira se page\_count.
@@ -257,12 +253,11 @@ Trie stablo je modelovan tako da svaki čvor predstavlja jedno slovo.
 
 Na početku inicijalizujemo koren stabla.
 
-  --------------------------
-  class Trie:\
-  def \_\_init\_\_(self):\
-  self.root = TrieNode()
-
-  --------------------------
+```python
+class Trie:
+   def __init__(self):
+       self.root = TrieNode()
+```
 
 Svaki čvor trie stabla u sebi ima
 
@@ -273,48 +268,45 @@ Svaki čvor trie stabla u sebi ima
 
 -   end (označava kraj reči tj. poslednje slovo)
 
-  --------------------------
-  class TrieNode:\
-  def \_\_init\_\_(self):\
-  self.children = {}\
-  self.end = False\
-  self.pages = {}
-
-  --------------------------
+```python
+class TrieNode:
+   def __init__(self):
+       self.children = {}
+       self.end = False
+       self.pages = {}
+```
 
 Klasa Result
 
 Ima u sebi path sa brojem pojavljivanja neke reči
 
-  ----------------------------------------------
-  class Result:\
-  \_\_slots\_\_ = \[\'\_path\', \'\_count\'\]\
-  \
-  def \_\_init\_\_(self, path, count=None):\
-  self.\_path = path\
-  self.\_count = 1 if count is None else count
+```python
+class Result:
+   __slots__ = ['_path', '_count']
 
-  ----------------------------------------------
+   def __init__(self, path, count=None):
+       self._path = path
+       self._count = 1 if count is None else count
+```
 
 **DODAVANJE REČI U TRIE STABLO**
 
 Dodavanje reči u trie stablo se vrši metodom add.
 
-  ------------------------------------
-  def add(self, word, page):\
-  current = self.root\
-  \
-  for ch in word:\
-  if not current.contains\_key(ch):\
-  current.put(ch)\
-  \
-  current = current.get(ch)\
-  \
-  tmp = Result(page)\
-  current.add\_page(tmp)\
-  current.set\_end()
+```python
+def add(self, word, page):
+   current = self.root
 
-  ------------------------------------
+   for ch in word:
+       if not current.contains_key(ch):
+           current.put(ch)
+
+       current = current.get(ch)
+  
+   tmp = Result(page)
+   current.add_page(tmp)
+   current.set_end()
+```
 
 Koraci
 
@@ -339,24 +331,23 @@ klase Result. Ukoliko se reč već nalazi u stablu, samo povećamo broj
 pojavljivanja reči u toj stranici (isto metodom add\_page, u dictionary
 pages na osnovu path-a koji predstavlja njegov ključ)
 
-  -------------------------------------------------------------
-  def add\_page(self, page): *\# dodaj stranicu za neku rec*\
-  path = page.path\
-  if path not in self.pages:\
-  self.pages\[path\] = page\
-  else:\
-  self.pages\[path\].inc(1)\
-  \
-  def put(self, ch):\
-  self.children\[ch\] = TrieNode()\
-  \
-  def get(self, ch):\
-  return self.children\[ch\]\
-  \
-  def contains\_key(self, ch):\
-  return ch in self.children
+```python
+def add_page(self, page):  # dodaj stranicu za neku rec
+   path = page.path
+   if path not in self.pages:
+       self.pages[path] = page
+   else:
+       self.pages[path].inc(1)
 
-  -------------------------------------------------------------
+def put(self, ch):
+   self.children[ch] = TrieNode()
+
+def get(self, ch):
+   return self.children[ch]
+
+def contains_key(self, ch):
+   return ch in self.children
+```
 
 **PRETRAGA REČI**
 
@@ -380,18 +371,17 @@ pages na osnovu path-a koji predstavlja njegov ključ)
 
 Pretraga reči u trie stablu vrši se metodom find.
 
-  ------------------------------------------------------------------------
-  def find(self, word):\
-  current = self.root\
-  \
-  for ch in word:\
-  if not current.contains\_key(ch):\
-  return \[\]\
-  current = current.get(ch)\
-  \
-  return \[\] if not current.is\_end() else list(current.pages.values())
+```python
+def find(self, word):
+   current = self.root
 
-  ------------------------------------------------------------------------
+   for ch in word:
+       if not current.contains_key(ch):
+           return []
+       current = current.get(ch)
+
+   return [] if not current.is_end() else list(current.pages.values())
+```
 
 Koraci
 
@@ -418,10 +408,10 @@ se tražena reč nalazi, u suprotnom vraća praznu listu
 
 Primer uspešne pretrage
 
-![](media/image1.png){width="5.038252405949256in"
+![](image3.png){width="5.038252405949256in"
 height="4.234375546806649in"}
 
 Primer neuspešne pretrage
 
-![](media/image2.png){width="2.994792213473316in"
+![](image4.png){width="2.994792213473316in"
 height="3.2997156605424323in"}
