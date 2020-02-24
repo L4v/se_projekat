@@ -178,6 +178,9 @@ def main():
         if option == 1:
             results = unos_upita(trie, graph).values
             ranked = ranker.rank_pages(results).values
+            if len(ranked) == 0:
+                err('Ne postoji')
+                continue
             timsort(ranked)
             search_result = SearchDisplay(ranked)
             page_menu(search_result)

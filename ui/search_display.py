@@ -30,6 +30,9 @@ class SearchDisplay:
     def display(self, page_num):
         self._paginate()
         page_max = len(self._pages)
+        if page_max == 0:
+            print('Ne postoji')
+            return
         if page_num > page_max or page_num <= 0:
             print(f'Strana {page_num} ne postoji!')
             return
