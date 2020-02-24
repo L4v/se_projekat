@@ -4,11 +4,11 @@
 
 Rang stranice određen je sledećom formulom:
 
-![R = QC \* (1 + pr\_w \* PR + bl\_w \* BL)](eq1.png)
+<center>![R = QC \* (1 + pr\_w \* PR + bl\_w \* BL)](eq1.png)</center>
 
 Poseban slučaj ako je QC = 0:
 
-![R = PR](eq2.png)
+<center>![R = PR](eq2.png)</center>
 
 **R** - Rang stranice
 
@@ -29,7 +29,7 @@ Query count je dobavljen od trie-a i poznat je. Broj reči u
 backlink-ovima je takođe poznat, jedino što treba da se izračuna jeste
 PageRank; on se računa iterativno.
 
-![PR racun](eq3.png)
+<center>![PR racun](eq3.png)</center>
 
 N - ukupan broj čvorova u grafu
 
@@ -183,7 +183,7 @@ class Set():
 Skup je modelovan kao lista koja ne dozvoljava duplikate. Podržava
 operacije AND (\*), OR (+) i NOT (-) koje se mogu koristiti na sledeći
 način
-
+<center>
 A = Set()
 
 B = Set()
@@ -192,7 +192,7 @@ A \* B
 
 A + B
 
-A - B
+A - B</center>
 
 ```python
     def __mul__(self, other): # AND
