@@ -5,12 +5,12 @@
 Rang stranice određen je sledećom formulom:
 
 <div align="center">
-![R = QC \* (1 + pr\_w \* PR + bl\_w \* BL)](eq1.png)
+<img alg="R = QC \* (1 + pr\_w \* PR + bl\_w \* BL)" src="eq1.png">
 </div>
 
 Poseban slučaj ako je QC = 0:
 
-<div align="center">![R = PR](eq2.png)</div>
+<div align="center"><img alt="R = PR" src="eq2.png"></div>
 
 **R** - Rang stranice
 
@@ -31,7 +31,7 @@ Query count je dobavljen od trie-a i poznat je. Broj reči u
 backlink-ovima je takođe poznat, jedino što treba da se izračuna jeste
 PageRank; on se računa iterativno.
 
-<div align="center">![PR racun](eq3.png)</div>
+<div align="center"><img alt="PR racun" src="eq3.png"></div>
 
 N - ukupan broj čvorova u grafu
 
