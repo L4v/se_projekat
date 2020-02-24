@@ -3,7 +3,7 @@ from datatypes.sets import Set
 
 
 def pretraga_upita(trie, graph, kriterijum, logical, not_word):
-    if not_word == True:
+    if not_word:
         a = Set([Result(i, 0) for i in graph.vertices(as_path=True)])  # skup svih stranica
         b = Set(trie.find(kriterijum[0]))  #  b ce biti skup stranica koje sadrze tu rec
         return a - b
@@ -12,8 +12,8 @@ def pretraga_upita(trie, graph, kriterijum, logical, not_word):
         a = Set(trie.find(kriterijum[0]))
         b = Set(trie.find(kriterijum[1]))
 
-        tmp = a * b
-        for i in tmp:  # treba da saberemo br reci
+        tmp = a * b  # rezultujuci skup stranica
+        for i in tmp:  # treba da saberemo broj pojavljivanja obe reci
             tmp[tmp.index(i)] += b[b.index(i)]
 
         return tmp
@@ -22,7 +22,7 @@ def pretraga_upita(trie, graph, kriterijum, logical, not_word):
         b = Set(trie.find(kriterijum[1]))
 
         tmp = a + b
-        for i in tmp:  # treba da saberemo br reci
+        for i in tmp:  # treba da saberemo broj pojavljivanja obe reci
             if i in a and i in b:
                 tmp[tmp.index(i)] += b[b.index(i)]
 
