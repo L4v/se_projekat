@@ -35,7 +35,7 @@ N - ukupan broj čvorova u grafu
 
 d - faktor korigovanja, najčešće 0.85
 
-```
+```python
 # Iterativno racunanje ranga
 for _ in range(self, itermax):
     new_ranks = {}
@@ -48,7 +48,7 @@ for _ in range(self, itermax):
 
 I konačan rang se dobija ovako
 
-```
+```python
 # Funkcija za racunanje ranga
 def rank_pages(self, pages):
 res = Set()
@@ -86,7 +86,7 @@ Najgori slučaj: O(nlogn)
 
 Najbolji slučaj O(n)
 
-```
+```python
 # Timsort
 def timsort(arr):
     n = len(arr)
@@ -109,7 +109,7 @@ def timsort(arr):
 
 Graf je predstavljen kao objekat koji sadrži 2 python dict-a:
 
-```
+```python
 class Graph:
     def __init__(self):
         self._vertices = {}
@@ -129,7 +129,7 @@ key - putanja fajla
 value - lista fajlova koji pokazuju na key, fajlovi su predstavljeni
 putanjima
 
-```
+```python
 # Predstavlja jedan fajl u grafu
 class Vertex(object):
     __slots__ = ('_path', '_words', '_links', '_rank')
@@ -152,7 +152,7 @@ objekta, zajedno sa svojim linkovima i rečima. Posle učitavanja celog
 grafa, formiraju se backlink-ovi jer je potrebno da svi čvorovi postoje
 za taj korak.
 
-```
+```python
 # Ucitavanje grafa
 for root, dirs, files in os.walk(start):
         for file in files:
@@ -171,7 +171,7 @@ for root, dirs, files in os.walk(start):
 
 **SET**
 
-```
+```python
 class Set():
     def __init__(self, values=None):
             if values is None:
@@ -194,26 +194,25 @@ A + B
 
 A - B
 
-  -----------------------------------------
-  def \_\_mul\_\_(self, other): *\# AND*\
-  ret = Set()\
-  for i in self.\_values:\
-  if i in other:\
-  ret.add(i)\
-  return ret\
-  def \_\_add\_\_(self, other): *\# OR*\
-  ret = Set(self.\_values)\
-  for i in other:\
-  ret.add(i)\
-  return ret\
-  def \_\_sub\_\_(self, other): *\# NOT*\
-  ret = Set()\
-  for i in self.\_values:\
-  if i not in other:\
-  ret.add(i)\
-  return ret
-
-  -----------------------------------------
+```python
+    def __mul__(self, other): # AND
+        ret = Set()
+        for i in self._values:
+            if i in other:
+                ret.add(i)
+        return ret
+    def __add__(self, other): # OR
+        ret = Set(self._values)
+        for i in other:
+            ret.add(i)
+        return ret
+    def __sub__(self, other): # NOT
+        ret = Set()
+        for i in self._values:
+            if i not in other:
+                ret.add(i)
+        return ret
+```
 
 **PAGINACIJA**
 
