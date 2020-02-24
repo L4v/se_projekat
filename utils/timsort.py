@@ -47,7 +47,7 @@ def _merge(arr, l, m, r):
             j += 1
         k += 1
 
-    # NOTE(Jovan): Ostatak u levi / desni
+    # NOTE(Jovan): Ostatak iz levog i desnog
     while i < len1:
         arr[k] = left[i]
         k += 1
@@ -61,9 +61,12 @@ def _merge(arr, l, m, r):
 # NOTE(Jovan): Timsort
 def timsort(arr):
     n = len(arr)
+    # NOTE(Jovan): Soritranje pojedinacnih RUN-ova
     for i in range(0, n, RUN):
         _insertion_sort(arr, i, min((i + 31), (n-1)))
 
+    # NOTE(Jovan): Spajanje pojedinacno sortiranih RUN-ova
+    # u sve vece i vece, 32, 64, 128 ...
     size = RUN
     while size < n:
         for left in range(0, n, 2*size):

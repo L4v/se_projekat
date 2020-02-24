@@ -11,7 +11,8 @@ class Ranker:
         self._init_rank(graph, itermax, d)
 
     def _init_rank(self, graph, itermax, d):
-        # NOTE(Jovan): Inicijalne vrednosti
+        # NOTE(Jovan): Inicijalizuju se vrednosti na pocetku
+        # kako se ne bi morale racunati za svako rangiranje
         self._backlinks = graph.backlinks
         N = graph.vertex_count()
         factor = (1.0 - d) / N
