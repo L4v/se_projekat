@@ -1,4 +1,3 @@
-<img src="eq1.png" width=100 height=50>
 **Objašnjenje upotrebljenih algoritama**
 
 **RANGIRANJE**
