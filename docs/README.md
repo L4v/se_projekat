@@ -411,7 +411,7 @@ se tražena reč nalazi, u suprotnom vraća praznu listu
 
 Primer uspešne pretrage
 
-![](images/image3.png)
-Primer neuspešne pretrage
+![](images/image3.png)  
+Primer neuspešne pretrage  
 
 ![](images/image4.png)
