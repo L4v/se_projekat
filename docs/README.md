@@ -4,7 +4,7 @@
 
 Rang stranice određen je sledećom formulom:
 
-![R = QC \* (1 + pr\_w \* PR + bl\_w \* BL)](eq1.png =100x50)
+![R = QC \* (1 + pr\_w \* PR + bl\_w \* BL)](eq1.png)
 
 Poseban slučaj ako je QC = 0:
 
